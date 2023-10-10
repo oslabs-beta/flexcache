@@ -1,0 +1,20 @@
+{
+  "name": "supacache",
+  "description": "An efficient caching module designed to persist data across Node.js restarts, featuring a customizable eviction policy for optimal resource management.",
+  "author": "Pravek Karwe, Brian Yang, Charlie Wooodlief, Jake Bayarsaikhan",
+  "version": "1.0.0",
+  "keywords": ["supacache"],
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/supacache.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/supacache/issues"
+  },
+  "homepage": "https://github.com/oslabs-beta/supacache#readme"
+}

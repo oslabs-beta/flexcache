@@ -1,8 +1,8 @@
 
-import Link from 'next/link'
-import MainButton from '@/components/MainButton'
-import SecondaryButton from '@/components/SecondaryButton'
-import Github from '@/icons/github'
+import Link from 'next/link';
+import MainButton from '@/components/MainButton';
+import SecondaryButton from '@/components/SecondaryButton';
+import Github from '@/icons/github';
 
 export default function Hero() {
   return (
@@ -18,11 +18,11 @@ export default function Hero() {
           <Link href={'/demo'}>
             <MainButton text='Try Demo' />
           </Link>
-          <Link href={'/https://github.com/oslabs-beta/supacache'}>
+          <Link href={'https://github.com/oslabs-beta/supacache'}>
             <SecondaryButton icon={<Github />} text='GitHub' />
           </Link>
         </div>
       </div>
     </div>
-  )
+  );
 }

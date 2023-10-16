@@ -8,6 +8,7 @@
   "scripts": {
     
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oslabs-beta/supacache.git"

@@ -1,31 +1,47 @@
 (function() {
     const eventEmitter = require('events').EventEmitter
     module.exports = class Supacache extends eventEmitter {
-        constructor (evicPolicy) {
+        constructor (options = {}) {
             super()
             
             /**
              * Option Parameters
              */
 
+            // default options
+
             this.options = {
                 forceString: false,
                 stdTTL: Infinity,
                 checkPeriod: 600,
                 deleteOnExpire: true,
-                maxKeys: Infinity
+                maxKeys: Infinity,
             }
 
+            // overwrite defaults with user inputs
+
+            const {forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys, evictionPolicy} = options
+            const writableProps = {forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys}
+            for (const key in writableProps) {
+                if (writableProps[key]) {
+                    if (typeof writableProps[key] !== typeof this.options[key]){
+                        const _err = this._error("EOPTIONINPUTS")
+                        throw _err
+                    }
+                    this.options[key] = writableProps[key]
+                }
+            }
+        
             // assign eviction policy as read only property, use ttl as default policy
 
-            if (evicPolicy) {
-                if (!this._evictionPolicies.includes(evicPolicy)) {
-                const _err = this._error("EEVICPOLICY")
-                throw _err
+            if (evictionPolicy) {
+                if (!this._evictionPolicies.includes(evictionPolicy)) {
+                    const _err = this._error("EEVICPOLICY")
+                    throw _err
                 } 
                 else {
                     Object.defineProperty(this.options, "evictionPolicy", {
-                        value: evicPolicy,
+                        value: evictionPolicy,
                         writable: false,
                         enumerable: true
                     })
@@ -118,7 +134,8 @@
             "EKEYTYPE": "The key argument has to be of type `string` or `number`. Found: `__key`",
             "EKEYSTYPE": "The keys argument has to be an array.",
             "ETTLTYPE": "The ttl argument has to be a number.",
-            "EEVICPOLICY": "Eviction policy has to be " + this._validKeyTypes.join(' or ') + '.'
+            "EEVICPOLICY": "Eviction policy has to be " + this._validKeyTypes.join(' or ') + '.',
+            "EOPTIONINPUTS": "Option inputs must match the data type of default parameters."
         }
             
     }

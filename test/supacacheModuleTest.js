@@ -15,13 +15,15 @@ class supacache {
       } else {
           // Handle setting a single key-value pair
           const key = keyOrKeyValueSet;
-  
-          let _err, err, existent; //maybe not need?
-          boundMethodCheck(this, NodeCache);
+
+          //internal varibles
+          let _err, err, existent;
+
+          boundMethodCheck(this, supacache);
   
           // Check if cache is overflowing
           if (this.options.maxKeys !== Infinity && this.stats.keys >= this.options.maxKeys) {
-              _err = this._error("ECACHEFULL");
+              _err = this._error("Cache is Full!");
               throw _err;
           }
   
@@ -73,16 +75,18 @@ class supacache {
 
         return true;
     }
-    
-    catch(err) {
+    //**missing emit!!!**
+    catch ( err ) {
       console.log("Try/Catch Set Method Error", err)
     }
   }
   /*  mget/get method ------------------------------------------------------------------------------------*/
   get(keys) {
     try {
+        //internal varibles
         let err, i, key, len, objectReturn;
-        boundMethodCheck(this, NodeCache);
+
+        boundMethodCheck(this, supacache);
 
         // If keys is not an array, convert it to an array with one key
         if (!Array.isArray(keys)) {
@@ -114,11 +118,71 @@ class supacache {
         return Array.isArray(keys) ? objectReturn : objectReturn[keys[0]];
 
     } 
-    
+    //**missing emit!!!**
     catch (err) {
-        console.log("Try/Catch Get Method Error", err);
+      console.log("Try/Catch Get Method Error", err);
     }
   }
+  /*  delete method ------------------------------------------------------------------------------------*/
+  delete(keys) {
+    try{
+      //internal varibles
+      let delCount, err, i, key, len, oldVal;
+
+      boundMethodCheck(this, supacache);
+
+      // If keys is not an array, convert it to an array with one key
+      if (!Array.isArray(keys)) {
+        keys = [keys];
+      }
+
+      delCount = 0;
+
+      for (i = 0, len = keys.length; i < len; i++) {
+        key = keys[i];
+        // handle invalid key types
+        if ((err = this._isInvalidKey(key)) != null) {
+          throw err;
+        }
+        // only delete if existent
+        if (this.data[key] != null) {
+          // calc the stats
+          this.stats.vsize -= this._getValLength(this._unwrap(this.data[key], false));
+          this.stats.ksize -= this._getKeyLength(key);
+          this.stats.keys--;
+          delCount++;
+          // delete the value
+          oldVal = this.data[key];
+          delete this.data[key];
+          // return true
+         this.emit("del", key, oldVal.v);
+      }
+    }
+    return delCount;
+  }
+
+    catch ( err ) {
+      console.log("Try/Catch Delete Method Error", err);
+    }
+  }
+  /*  take method ------------------------------------------------------------------------------------*/
+  take(keys) {
+
+    //internal varibles
+    let returnKey
+    //binding
+    boundMethodCheck(this, supacache);
+    //get keys
+    returnKey = this.get(keys);
+    //delete key if its not null
+    if(returnKey != null) {
+      this.delete(returnKey)
+    }
+    //return key
+    return _returnKey
+  }
+  /*  take method ------------------------------------------------------------------------------------*/
+
 }
 
 

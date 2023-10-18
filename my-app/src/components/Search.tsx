@@ -61,8 +61,6 @@ const Search: React.FC = () => { // FC stands for Function Component
 
             const data = await response.json();
 
-            // console.log(data);
-
             // Update timings
             setExternalTime(data.externalTime);
             setCacheTime(data.cacheTime);
@@ -70,10 +68,15 @@ const Search: React.FC = () => { // FC stands for Function Component
             // Find selected player from array of players
             const playerInfo = results.find(player => player.id === playerId);
 
+            // console.log(data);
+
             // Check if data object exists and that it's not empty
             if (data.playerData) {
-                const playerStats = data.playerData[0];
+                const playerStats = data.playerData.data[0];
 
+                // console.log(data.playerData);
+
+                // Combine player info and player stats (fetched differently from external api)
                 setSelectedPlayer({
                     ...playerInfo,
                     ...playerStats,

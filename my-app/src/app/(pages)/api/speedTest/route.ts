@@ -15,6 +15,9 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     let cacheTime = 0;
 
     try {
+
+        let fetchedFromCache: boolean = false;
+
         // Check cache first
         const cacheStart = process.hrtime(); // Start timer
         const cachedData = getCache(playerId);
@@ -23,16 +26,21 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
 
         if (cachedData) {
             data = cachedData;
+            fetchedFromCache = true;
+            console.log(`in if(cacheData). Cached Data: ${cachedData}`);
         } else {
+
             // If not in cache, fetch from API
             const apiStart = process.hrtime();
-            const apiResponse = await fetch(`https://balldontlie.io/api/v1/season_averages?season=2022&player_ids[]=${playerId}&`);
+            const apiResponse = await fetch(`https://balldontlie.io/api/v1/season_averages?season=2022&player_ids[]=${playerId}`);
             data = await apiResponse.json();
+            console.log(`in else statement in speedTest. Fetched Data: ${apiResponse}`);
+
             const apiDuration = process.hrtime(apiStart);
             externalTime = apiDuration[0] * 1000 + apiDuration[1] / 1000000;
 
             // Save to cache
-            console.log(setCache(playerId, data));
+            setCache(playerId, data);
         }
 
         return new Response(JSON.stringify({

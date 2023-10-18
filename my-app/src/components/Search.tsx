@@ -178,7 +178,7 @@ const Search: React.FC = () => { // FC stands for Function Component
                         <div>
                             External API Time: {externalTime} ms
                             <br />
-                            Node-Cache Time: {cacheTime} ms
+                            Supacache Time: {cacheTime} ms
                         </div>
                     </div>
                 )}

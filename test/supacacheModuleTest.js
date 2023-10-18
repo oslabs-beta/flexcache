@@ -1,8 +1,10 @@
 class supacache {
 
-  constructor() {
+  constructor(options = {}) {
     this.cache = new Map();
-    this.options = {}
+    this.options = {
+      
+    }
   }
 /*  mset/set method ------------------------------------------------------------------------------------*/
   set(keyOrKeyValueSet, value, evictionPolicy) {
@@ -123,7 +125,7 @@ class supacache {
       console.log("Try/Catch Get Method Error", err);
     }
   }
-  /*  delete method ------------------------------------------------------------------------------------*/
+  /*  delete/ mdelete method ------------------------------------------------------------------------------------*/
   delete(keys) {
     try{
       //internal varibles
@@ -181,8 +183,48 @@ class supacache {
     //return key
     return _returnKey
   }
-  /*  take method ------------------------------------------------------------------------------------*/
+  /*  clear(flush) method ------------------------------------------------------------------------------------*/
+  clearAll() {
+    //binding
+    boundMethodCheck(this, supacache);
+    //reset data
+    this.data = {};
+    //reset stats
+    this.stats = {
+      hits: 0,
+      misses: 0,
+      keys: 0,
+      ksize: 0,
+      vsize: 0
+    }
+    this.emit("clear_all")
+  }
+    /*  clearStats(flushStats) method ------------------------------------------------------------------------------------*/
+  clearStats() {
+    boundMethodCheck(this, supacache);
+    
+    this.stats = {
+      hits: 0,
+      misses: 0,
+      keys: 0,
+      ksize: 0,
+      vsize: 0
+    }
+    this.emit("clear_stats")
+  }
+    /*  getStats method ------------------------------------------------------------------------------------*/
+  getStats() {
+    boundMethodCheck(this, supacache);
 
+    return this.stats
+  }
+    /*  getStats method ------------------------------------------------------------------------------------*/
+  has() {
+    boundMethodCheck(this, supacache);
+
+    if(this.data[key] && this._check(key, this.data[key])) return true
+    return false
+  }
 }
 
 

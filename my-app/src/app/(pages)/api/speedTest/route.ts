@@ -2,6 +2,7 @@ import type { NextRequest, NextResponse } from 'next/server';
 import fetch from 'node-fetch';
 import { setCache, getCache } from '@/cache';
 
+
 export const GET = async (req: NextRequest, res: NextResponse) => {
     const searchParams = req.nextUrl.searchParams;
     const playerId = searchParams.get('playerId');

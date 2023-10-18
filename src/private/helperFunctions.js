@@ -175,22 +175,28 @@ const _check = (key, data) => {
 
         this.data[key].last_time_used = Date.now(); //set lru value for key
 
-        if (this.stats.keys >= this.maxKeys) { //indicates that the LRU cache is full
-
-            //calculate key of least recently used entry in the cache
-            const lru_key = Object.keys(this.data).reduce(function (a, b) { return this.data[a] < this.data[b] ? a : b });
-
-            //once the key is found, delete the entry using the public delete method
-            result = false;
-            this.del(lru_key);
-
-
-        }
-
         return result;
 
     }
 
+}
+
+/**
+ * checks if LRU cache is full before we set a cache value
+ */
+const _checkIfLRUFull = () => {
+
+    if (this.stats.keys >= this.maxKeys) { //indicates that the LRU cache is full
+
+        //calculate key of least recently used entry in the cache
+        const lru_key = Object.keys(this.data).reduce(function (a, b) { return this.data[a] < this.data[b] ? a : b });
+
+        //once the key is found, delete the entry using the public delete method
+        result = false;
+        this.del(lru_key);
+
+
+    }
 }
 
 /**

@@ -157,7 +157,7 @@ class supacache {
           oldVal = this.data[key];
           delete this.data[key];
           // return true
-         this.emit("del", key, oldVal.v);
+          this.emit("del", key, oldVal.value);
       }
     }
     return delCount;
@@ -181,7 +181,7 @@ class supacache {
       this.delete(returnKey)
     }
     //return key
-    return _returnKey
+    return returnKey
   }
   /*  clear(flush) method ------------------------------------------------------------------------------------*/
   clearAll() {

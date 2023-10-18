@@ -1,5 +1,25 @@
 (function() {
+
+    const helperFunctions = require('./private/helperFunctions.js')
+    const publicMethods = require('./public/public_methods.js')
+
+    const {
+        _deepClone, _wrap, _unwrap,
+        _getValLength, _getKeyLength,
+        _error, _check, _checkIfLRUFull,
+        _checkData, _killCheckPeriod, _closed,
+        _boundMethodCheck, _isInvalidKey 
+    } = helperFunctions
+    
+    const {
+        get, set, take,
+        del, ttl, getTtl,
+        getStats, flushStats, flushAll,
+        has, keys, close 
+    } = publicMethods
+
     const eventEmitter = require('events').EventEmitter
+
     module.exports = class Supacache extends eventEmitter {
         constructor (options = {}) {
             super()
@@ -77,6 +97,7 @@
             this._getKeyLength = this._getKeyLength.bind(this)
             this._error = this._error.bind(this)
             this._check = this._check.bind(this)
+            this._checkIfLRUFull = this._checkIfLRUFull.bind(this)
             this._checkData = this._checkData.bind(this)
             this._killCheckPeriod = this._killCheckPeriod.bind(this)
             this._closed = this._closed.bind(this)
@@ -88,9 +109,7 @@
              */
 
             this.get = this.get.bind(this)
-            this.mget = this.mget.bind(this)
             this.set = this.set.bind(this)
-            this.mset = this.mset.bind(this)
             this.del = this.del.bind(this)
             this.take = this.take.bind(this)
             this.ttl = this.ttl.bind(this)
@@ -102,14 +121,47 @@
             this.flushStats = this.flushStats.bind(this)
             this.close = this.close.bind(this)
 
-            /**
-             * Start Checking Period
-             */
+            //start checking period
 
             this._checkData()
 
             return
         }
+
+        /**
+         * Public Methods
+         */
+        get = get
+        set = set
+        take = take
+        del = del
+        ttl = ttl
+        getTtl = getTtl
+        getStats = getStats
+        flushStats = flushStats
+        flushAll = flushAll
+        has = has
+        keys = keys
+        close = close
+
+        /**
+         * Private Methods
+         */
+
+        _deepClone = _deepClone
+        _wrap = _wrap
+        _unwrap = _unwrap
+        _getValLength = _getValLength
+        _getKeyLength = _getKeyLength
+        _error = _error
+        _check = _check
+        _checkIfLRUFull =_checkIfLRUFull
+        _checkData = _checkData
+        _killCheckPeriod = _killCheckPeriod
+        _closed = _closed
+        _boundMethodCheck = _boundMethodCheck
+        _isInvalidKey = _isInvalidKey
+
 
         /**
          * Global Metadata Fields

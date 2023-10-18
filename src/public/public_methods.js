@@ -265,22 +265,22 @@ function getStats() {
 
 function flushAll () {
 
-    _boundMethodCheck(this, Supacache);
-    
-    // set data empty
-    this.data = {};
-    // reset stats
-    this.stats = {
-      hits: 0,
-      misses: 0,
-      keys: 0,
-      ksize: 0,
-      vsize: 0
-    };
-    // reset check period
-    this._killCheckPeriod();
-    this._checkData(true);
-    this.emit("flush");
+  _boundMethodCheck(this, Supacache);
+  
+  // set data empty
+  this.data = {};
+  // reset stats
+  this.stats = {
+    hits: 0,
+    misses: 0,
+    keys: 0,
+    ksize: 0,
+    vsize: 0
+  };
+  // reset check period
+  this._killCheckPeriod();
+  this._checkData(true);
+  this.emit("flush");
 }
 
 /**
@@ -289,18 +289,18 @@ function flushAll () {
 
 function flushStats() {
 
-    _boundMethodCheck(this, Supacache);
+  _boundMethodCheck(this, Supacache)
 
-    // reset stats
-    this.stats = {
-      hits: 0,
-      misses: 0,
-      keys: 0,
-      ksize: 0,
-      vsize: 0
-    };
+  // reset stats
+  this.stats = {
+    hits: 0,
+    misses: 0,
+    keys: 0,
+    ksize: 0,
+    vsize: 0
+  }
 
-    this.emit("flush_stats");
+  this.emit("flush_stats");
 }
 
 /**
@@ -312,3 +312,4 @@ function close() {
     this._killCheckPeriod();
 }
 
+module.exports = {get, set, take, del, ttl, getTtl, getStats, flushStats, flushAll, has, keys, close}

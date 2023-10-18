@@ -1,9 +1,6 @@
 //will need to import public delete method
 
 
-
-
-
 /**
  * 
  * @param {item} item --> Input item to be deep cloned. 
@@ -21,7 +18,7 @@ const _deepClone = itemToClone => {
  */
 const _wrap = (value, ttl) => {
 
-    boundMethodCheck(this, supacache);
+    _boundMethodCheck(this, Supacache);
 
     let now;
 
@@ -77,7 +74,7 @@ const _unwrap = cacheEntry => {
  */
 const _getValLength = value => {
 
-    boundMethodCheck(this, supacache);
+    _boundMethodCheck(this, Supacache);
 
     if (typeof value === 'string') return value.length;
 
@@ -125,19 +122,19 @@ const _getKeyLength = key => {
  */
 const _error = (type, data) => {
 
-    boundMethodCheck(this, supacache);
+    _boundMethodCheck(this, Supacache);
 
-    let data = this._error.data ? this._error.data : {};
+    //commenting out this line for debugging purposes - think data param and associated logic can be deleted
+    // let data = this._error.data ? this._error.data : {};
 
     let error = new Error();
     //fill in error properties
     error.name = type;
     error.errorcode = type;
-    error.message = this.ERRORS[type] !== null ? this.ERRORS[type] : '-';
+    error.message = this._Errors[type] != null ? this._Errors[type] : '-';
     error.data = data;
 
     return error;
-
 }
 
 /**
@@ -148,7 +145,7 @@ const _error = (type, data) => {
  */
 const _check = (key, data) => {
 
-    boundMethodCheck(this, supacache);
+    _boundMethodCheck(this, Supacache);
     const now = Date.now();
     let result = true;
 
@@ -186,6 +183,8 @@ const _check = (key, data) => {
  */
 const _checkIfLRUFull = () => {
 
+    _boundMethodCheck(this, Supacache);
+
     if (this.stats.keys >= this.maxKeys) { //indicates that the LRU cache is full
 
         //calculate key of least recently used entry in the cache
@@ -206,7 +205,7 @@ const _checkIfLRUFull = () => {
  */
 const _checkData = (startPeriod = true) => {
 
-    boundMethodCheck(this, supacache);
+    _boundMethodCheck(this, Supacache);
 
     for (let key in this.data) {
 
@@ -238,7 +237,7 @@ const _killCheckPeriod = () => {
  */
 const _closed = () => {
 
-    boundMethodCheck(this, supacache);
+    _boundMethodCheck(this, Supacache)
     this._killCheckPeriod();
 
 }
@@ -265,7 +264,7 @@ const _boundMethodCheck = (instance, constructor) => {
  */
 const _isInvalidKey = key => {
 
-    boundMethodCheck(this, supacache);
+    _boundMethodCheck(this, Supacache);
 
     const keyType = typeof (key);
     if (this._validKeyTypes.indexOf(keyType) === -1) {
@@ -276,6 +275,10 @@ const _isInvalidKey = key => {
 
     }
 }
+
+// export functions
+
+module.exports = {_deepClone, _wrap, _unwrap, _getValLength, _getKeyLength, _error, _check, _checkIfLRUFull, _checkData, _killCheckPeriod, _closed, _boundMethodCheck, _isInvalidKey}
 
 
 

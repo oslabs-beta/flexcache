@@ -9,7 +9,6 @@
              */
 
             // default options
-
             this.options = {
                 forceString: false,
                 stdTTL: Infinity,
@@ -19,7 +18,6 @@
             }
 
             // overwrite defaults with user inputs
-
             const {forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys, evictionPolicy} = options
             const writableProps = {forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys}
             for (const key in writableProps) {
@@ -33,7 +31,6 @@
             }
         
             // assign eviction policy as read only property, use ttl as default policy
-
             if (evictionPolicy) {
                 if (!this._evictionPolicies.includes(evictionPolicy)) {
                     const _err = this._error("EEVICPOLICY")
@@ -115,7 +112,7 @@
         }
 
         /**
-         * Global Parameter Fields
+         * Global Metadata Fields
          */
 
         _memorySizeAssumptions = {

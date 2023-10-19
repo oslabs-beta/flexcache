@@ -1,3 +1,5 @@
+// const Supacache = require('../index.js')
+
 /**
  * get - Get a cached key and change the stats. Takes either a key or an array of keys
  * @param {array | string | number} keys
@@ -6,7 +8,7 @@
 
 function get (keys) {
 
-    _boundMethodCheck(this, Supacache)
+    // _boundMethodCheck(this, Supacache)
 
     // If keys is not an array, convert to array with one key
     if (!Array.isArray(keys)) {
@@ -49,7 +51,7 @@ function get (keys) {
 
 function set (key, value, ttl) {
 
-    _boundMethodCheck(this, Supacache)
+    // _boundMethodCheck(this, Supacache)
 
     // handle full cache for ttl mode
     if (this.stats.keys >= this.options.maxKeys && this.options.evictionPolicy === 'ttl') {
@@ -109,7 +111,7 @@ function set (key, value, ttl) {
 
 function del(keys) {
 
-    _boundMethodCheck(this, Supacache)
+    // _boundMethodCheck(this, Supacache)
 
     // make input an array if single key was passed in
     if (!Array.isArray(keys)) {
@@ -148,7 +150,7 @@ function del(keys) {
 
 
 function take(key) {
-     _boundMethodCheck(this, Supacache)
+    //  _boundMethodCheck(this, Supacache)
     const _ret = this.get(key);
     if ((_ret)) {
       this.del(key);
@@ -165,7 +167,7 @@ function take(key) {
 
 function ttl(key, ttl) {
     
-    _boundMethodCheck(this, Supacache)
+    // _boundMethodCheck(this, Supacache)
     ttl || (ttl = this.options.stdTTL);
     if (!key) {
       return false;
@@ -198,7 +200,7 @@ function ttl(key, ttl) {
 
 function getTtl(key) {
     
-    _boundMethodCheck(this, Supacache)
+    // _boundMethodCheck(this, Supacache)
 
     //return undefined if cache is in lru mode
 
@@ -230,7 +232,7 @@ function getTtl(key) {
  */
 
 function keys() {
-    _boundMethodCheck(this, Supacache);
+    // _boundMethodCheck(this, Supacache);
     let _keys = Object.keys(this.data);
     return _keys;
 }
@@ -243,7 +245,7 @@ function keys() {
 
 function has(key) {
     
-    _boundMethodCheck(this, Supacache);
+    // _boundMethodCheck(this, Supacache);
     const _exists = (this.data[key] != null) && this._check(key, this.data[key]);
     return _exists;
 }
@@ -255,7 +257,7 @@ function has(key) {
 
 function getStats() {
 
-    _boundMethodCheck(this, Supacache);
+    // _boundMethodCheck(this, Supacache);
     return this.stats;
 }
 
@@ -265,22 +267,22 @@ function getStats() {
 
 function flushAll () {
 
-    _boundMethodCheck(this, Supacache);
-    
-    // set data empty
-    this.data = {};
-    // reset stats
-    this.stats = {
-      hits: 0,
-      misses: 0,
-      keys: 0,
-      ksize: 0,
-      vsize: 0
-    };
-    // reset check period
-    this._killCheckPeriod();
-    this._checkData(true);
-    this.emit("flush");
+  // _boundMethodCheck(this, Supacache);
+  
+  // set data empty
+  this.data = {};
+  // reset stats
+  this.stats = {
+    hits: 0,
+    misses: 0,
+    keys: 0,
+    ksize: 0,
+    vsize: 0
+  };
+  // reset check period
+  this._killCheckPeriod();
+  this._checkData(true);
+  this.emit("flush");
 }
 
 /**
@@ -289,18 +291,18 @@ function flushAll () {
 
 function flushStats() {
 
-    _boundMethodCheck(this, Supacache);
+  // _boundMethodCheck(this, Supacache)
 
-    // reset stats
-    this.stats = {
-      hits: 0,
-      misses: 0,
-      keys: 0,
-      ksize: 0,
-      vsize: 0
-    };
+  // reset stats
+  this.stats = {
+    hits: 0,
+    misses: 0,
+    keys: 0,
+    ksize: 0,
+    vsize: 0
+  }
 
-    this.emit("flush_stats");
+  this.emit("flush_stats");
 }
 
 /**
@@ -308,7 +310,8 @@ function flushStats() {
  */
 
 function close() {
-    _boundMethodCheck(this, Supacache)
+    // _boundMethodCheck(this, Supacache)
     this._killCheckPeriod();
 }
 
+module.exports = {get, set, take, del, ttl, getTtl, getStats, flushStats, flushAll, has, keys, close}

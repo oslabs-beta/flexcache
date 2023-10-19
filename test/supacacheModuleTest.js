@@ -51,7 +51,7 @@ class supacache {
           }
   
           // Handle invalid key types
-          if ((err = this._isInvalidKey(key)) != null) {
+          if ((err = this._isInvalidKey(key))) {
               throw err;
           }
   
@@ -102,12 +102,12 @@ class supacache {
             key = keys[i];
 
             //Check if key is valid
-            if ((err = this._isInvalidKey(key)) != null) {
+            if ((err = this._isInvalidKey(key))) {
                 throw err;
             }
 
             // Get data and increment stats
-            if ((this.data[key] != null) && this._check(key, this.data[key])) {
+            if ((this.data[key]) && this._check(key, this.data[key])) {
                 this.stats.hits++;
                 objectReturn[key] = this._unwrap(this.data[key]);
             } else {
@@ -127,46 +127,49 @@ class supacache {
   }
   /*  delete/ mdelete method ------------------------------------------------------------------------------------*/
   delete(keys) {
-    try{
-      //internal varibles
-      let delCount, err, i, key, len, oldVal;
 
-      boundMethodCheck(this, supacache);
+    boundMethodCheck(this, supacache);
+    //internal varibles
+    let delCount, err, i, key, len, oldVal;
+    
+    delCount = 0;
 
-      // If keys is not an array, convert it to an array with one key
-      if (!Array.isArray(keys)) {
-        keys = [keys];
-      }
-
-      delCount = 0;
-
-      for (i = 0, len = keys.length; i < len; i++) {
-        key = keys[i];
-        // handle invalid key types
-        if ((err = this._isInvalidKey(key)) != null) {
-          throw err;
-        }
-        // only delete if existent
-        if (this.data[key] != null) {
-          // calc the stats
-          this.stats.vsize -= this._getValLength(this._unwrap(this.data[key], false));
-          this.stats.ksize -= this._getKeyLength(key);
-          this.stats.keys--;
-          delCount++;
-          // delete the value
-          oldVal = this.data[key];
-          delete this.data[key];
-          // return true
-          this.emit("del", key, oldVal.value);
-      }
+    // If keys is not an array, convert it to an array with one key
+    if (!Array.isArray(keys)) {
+      keys = [keys];
     }
+    for (i = 0, len = keys.length; i < len; i++) {
+
+      key = keys[i];
+
+      // handle invalid key types
+      if ((err = this._isInvalidKey(key))) {
+        throw err;
+      }
+
+      // only delete if existent
+      if (this.data[key]) {
+        // calc the stats
+        this.stats.vsize -= this._getValLength(this._unwrap(this.data[key], false));
+        this.stats.ksize -= this._getKeyLength(key);
+        this.stats.keys--;
+        delCount++;
+
+        // delete the value
+        oldVal = this.data[key];
+        delete this.data[key];
+        
+        // return true
+        this.emit("del", key, oldVal.value);
+    }
+  }
+      
     return delCount;
   }
 
-    catch ( err ) {
-      console.log("Try/Catch Delete Method Error", err);
-    }
-  }
+
+
+
   /*  take method ------------------------------------------------------------------------------------*/
   take(keys) {
 
@@ -177,11 +180,11 @@ class supacache {
     //get keys
     returnKey = this.get(keys);
     //delete key if its not null
-    if(returnKey != null) {
-      this.delete(returnKey)
+    if(returnKey) {
+      this.delete(returnKey);
     }
     //return key
-    return returnKey
+    return returnKey;
   }
   /*  clear(flush) method ------------------------------------------------------------------------------------*/
   clearAll() {
@@ -209,21 +212,22 @@ class supacache {
       keys: 0,
       ksize: 0,
       vsize: 0
-    }
-    this.emit("clear_stats")
+    };
+
+    this.emit("clear_stats");
   }
     /*  getStats method ------------------------------------------------------------------------------------*/
   getStats() {
     boundMethodCheck(this, supacache);
 
-    return this.stats
+    return this.stats;
   }
     /*  getStats method ------------------------------------------------------------------------------------*/
   has() {
     boundMethodCheck(this, supacache);
 
-    if(this.data[key] && this._check(key, this.data[key])) return true
-    return false
+    if(this.data[key] && this._check(key, this.data[key])) return true;
+    return false;
   }
 }
 

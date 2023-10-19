@@ -1,11 +1,11 @@
 //will need to import public delete method
-
+// const Supacache = require('../index.js')
 
 /**
  * 
  * @param {item} item --> Input item to be deep cloned. 
  */
-const _deepClone = itemToClone => {
+function _deepClone (itemToClone) {
 
     return JSON.parse(JSON.stringify(itemToClone));
 
@@ -16,9 +16,9 @@ const _deepClone = itemToClone => {
  * @param {String} value --> Value that we want to wrap into an object with livetime (ttl) or last_time_used (lru)
  * @param {String} ttl --> Time to live for ttl eviction method. Do not supply for the lru method, if supplied it will be ignored.
  */
-const _wrap = (value, ttl) => {
+function _wrap (value, ttl) {
 
-    _boundMethodCheck(this, Supacache);
+    // _boundMethodCheck(this, Supacache);
 
     let now;
 
@@ -60,7 +60,7 @@ const _wrap = (value, ttl) => {
  * @param {Object} cacheEntry -> object contains eviction policy specific time (either livetime or last_time used) and value
  * @returns value from a specified cache entry
  */
-const _unwrap = cacheEntry => {
+function _unwrap (cacheEntry) {
 
     return cacheEntry.value;
 
@@ -72,9 +72,9 @@ const _unwrap = cacheEntry => {
  * 
  * @param {String || Number || Boolean || Function | Object} value --> value within a cacheEntry that we want to calculate how much memory it will consume.
  */
-const _getValLength = value => {
+function _getValLength (value) {
 
-    _boundMethodCheck(this, Supacache);
+    // _boundMethodCheck(this, Supacache);
 
     if (typeof value === 'string') return value.length;
 
@@ -110,7 +110,7 @@ const _getValLength = value => {
  * 
  * @param {String} key --> get length of a particular key of a cacheEntry 
  */
-const _getKeyLength = key => {
+function _getKeyLength (key) {
 
     return key.toString().length;
 
@@ -120,9 +120,9 @@ const _getKeyLength = key => {
  * 
  * @param {String} type --> refers to error type, such as ENOTFOUND
  */
-const _error = (type, data) => {
+function _error (type, data) {
 
-    _boundMethodCheck(this, Supacache);
+    // _boundMethodCheck(this, Supacache);
 
     //commenting out this line for debugging purposes - think data param and associated logic can be deleted
     // let data = this._error.data ? this._error.data : {};
@@ -143,9 +143,9 @@ const _error = (type, data) => {
  * @param {Object} data 
  * @returns true if no data needs to be evicted, false otherwise
  */
-const _check = (key, data) => {
+function _check (key, data) {
 
-    _boundMethodCheck(this, Supacache);
+    // _boundMethodCheck(this, Supacache);
     const now = Date.now();
     let result = true;
 
@@ -181,9 +181,9 @@ const _check = (key, data) => {
 /**
  * checks if LRU cache is full before we set a cache value
  */
-const _checkIfLRUFull = () => {
+function _checkIfLRUFull () {
 
-    _boundMethodCheck(this, Supacache);
+    // _boundMethodCheck(this, Supacache);
 
     if (this.stats.keys >= this.maxKeys) { //indicates that the LRU cache is full
 
@@ -203,15 +203,15 @@ const _checkIfLRUFull = () => {
  * @param {Boolean} startPeriod, defaulted to true
  * @returns {void} applies setTimeout once called 
  */
-const _checkData = (startPeriod = true) => {
 
-    _boundMethodCheck(this, Supacache);
+function _checkData (startPeriod = true) {
+
+    // _boundMethodCheck(this, Supacache);
 
     for (let key in this.data) {
 
         const value = this.data[key];
         this._check(key, value);
-
     }
 
     if (startPeriod && this.options.checkPeriod > 0) {
@@ -225,7 +225,7 @@ const _checkData = (startPeriod = true) => {
 /**
  * For internal use only to kill check period and restart stats counter 
  */
-const _killCheckPeriod = () => {
+function _killCheckPeriod () {
 
     if (this.checkTimeout != null) {
         return clearTimeout(this.checkTimeout);
@@ -235,9 +235,9 @@ const _killCheckPeriod = () => {
 /**
  * Helper function for kill check period
  */
-const _closed = () => {
+function _closed () {
 
-    _boundMethodCheck(this, Supacache)
+    // _boundMethodCheck(this, Supacache)
     this._killCheckPeriod();
 
 }
@@ -248,7 +248,7 @@ const _closed = () => {
  * @param {Class Constructor} constructor
  * @returns throws error if conditional check fails  
  */
-const _boundMethodCheck = (instance, constructor) => {
+function _boundMethodCheck (instance, Constructor) {
 
     if (!(instance instanceof Constructor)) {
 
@@ -262,9 +262,10 @@ const _boundMethodCheck = (instance, constructor) => {
  * @param {String} key 
  * @returns Error object containing the invalid key type that was passed in
  */
-const _isInvalidKey = key => {
 
-    _boundMethodCheck(this, Supacache);
+function _isInvalidKey (key) {
+
+    // _boundMethodCheck(this, Supacache);
 
     const keyType = typeof (key);
     if (this._validKeyTypes.indexOf(keyType) === -1) {

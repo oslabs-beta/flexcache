@@ -32,7 +32,7 @@
             this.options = {
                 forceString: false,
                 stdTTL: Infinity,
-                checkPeriod: 600,
+                checkPeriod: 0,
                 deleteOnExpire: true,
                 maxKeys: Infinity,
             }
@@ -183,7 +183,7 @@
             "EKEYTYPE": "The key argument has to be of type `string` or `number`. Found: `__key`",
             "EKEYSTYPE": "The keys argument has to be an array.",
             "ETTLTYPE": "The ttl argument has to be a number.",
-            "EEVICPOLICY": "Eviction policy has to be " + this._validKeyTypes.join(' or ') + '.',
+            "EEVICPOLICY": "Eviction policy has to be " + this._evictionPolicies.join(' or ') + '.',
             "EOPTIONINPUTS": "Option inputs must match the data type of default parameters."
         }
             

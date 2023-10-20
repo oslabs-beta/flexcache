@@ -6,40 +6,44 @@
  * @returns {object | any}: value from cache
  */
 
-function get (keys) {
+function get(keys) {
 
-    // _boundMethodCheck(this, Supacache)
 
-    // If keys is not an array, convert to array with one key
-    if (!Array.isArray(keys)) {
-        keys = [keys];
+  // _boundMethodCheck(this, Supacache)
+
+  let isArray = true;
+
+  // If keys is not an array, convert to array with one key
+  if (!Array.isArray(keys)) {
+    isArray = false;
+    keys = [keys];
+  }
+
+  // Define the return object
+  const objectReturn = {};
+
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+
+    //Check if key is valid
+    let err;
+    if ((err = this._isInvalidKey(key)) != null) {
+      throw err;
     }
 
-     // Define the return object
-     const objectReturn = {};
-
-     for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-
-        //Check if key is valid
-        let err;
-        if ((err = this._isInvalidKey(key)) != null) {
-            throw err;
-        }
-
-        // Get data and increment stats
-        if (this.data[key] && this._check(key, this.data[key])) {
-            this.stats.hits++;
-            objectReturn[key] = this._unwrap(this.data[key]);
-        } else {
-            // If not found, return undefined
-            this.stats.misses++;
-            objectReturn[key] = undefined
-        }
+    // Get data and increment stats
+    if (this.data[key] && this._check(key, this.data[key])) {
+      this.stats.hits++;
+      objectReturn[key] = this._unwrap(this.data[key]);
+    } else {
+      // If not found, return undefined
+      this.stats.misses++;
+      objectReturn[key] = undefined
     }
+  }
 
-    // If a single key was provided, return the value directly; otherwise, return an object
-    return Array.isArray(keys) ? objectReturn : objectReturn[keys]
+  // If a single key was provided, return the value directly; otherwise, return an object
+  return isArray ? objectReturn : objectReturn[keys[0]]
 }
 
 /**
@@ -49,57 +53,57 @@ function get (keys) {
  * @param {number} [ttl] - (optional) - value for time to live for cache instances in ttl mode
  */
 
-function set (key, value, ttl) {
+function set(key, value, ttl) {
 
-    // _boundMethodCheck(this, Supacache)
+  // _boundMethodCheck(this, Supacache)
 
-    // handle full cache for ttl mode
-    if (this.stats.keys >= this.options.maxKeys && this.options.evictionPolicy === 'ttl') {
-        const _err = this._error("ECACHEFULL");
-        throw _err;
-    }
+  // handle full cache for ttl mode
+  if (this.stats.keys >= this.options.maxKeys && this.options.evictionPolicy === 'ttl') {
+    const _err = this._error("ECACHEFULL");
+    throw _err;
+  }
 
-    // handle full cache for lru mode
-    if (this.stats.keys >= this.options.maxKeys && this.options.evictionPolicy === 'lru') {
-        _checkIfLRUFull()
-    }
+  // handle full cache for lru mode
+  if (this.stats.keys >= this.options.maxKeys && this.options.evictionPolicy === 'lru') {
+    _checkIfLRUFull()
+  }
 
-    // force data to string
-    if (this.options.forceString && !typeof value === "string") {
-        value = JSON.stringify(value);
-    }
+  // force data to string
+  if (this.options.forceString && !typeof value === "string") {
+    value = JSON.stringify(value);
+  }
 
-    // set default ttl if not passed
-    if (!ttl) {
-        ttl = this.options.stdTTL;
-    }
+  // set default ttl if not passed
+  if (!ttl) {
+    ttl = this.options.stdTTL;
+  }
 
-    //Check if key is valid
-    let err;
-    if ((err = this._isInvalidKey(key)) != null) {
-        throw err;
-    }
+  //Check if key is valid
+  let err;
+  if ((err = this._isInvalidKey(key)) != null) {
+    throw err;
+  }
 
-    // internal helper variable
-    existent = false;
+  // internal helper variable
+  let existent = false;
 
-    // remove existing data from stats
-    if (this.data[key]) {
-      existent = true;
-      this.stats.vsize -= this._getValLength(this._unwrap(this.data[key]));
-    }
-    // set the value (ttl will be ignored if in lru mode)
-    this.data[key] = this._wrap(value, ttl);
-    this.stats.vsize += this._getValLength(value);
+  // remove existing data from stats
+  if (this.data[key]) {
+    existent = true;
+    this.stats.vsize -= this._getValLength(this._unwrap(this.data[key]));
+  }
+  // set the value (ttl will be ignored if in lru mode)
+  this.data[key] = this._wrap(value, ttl);
+  this.stats.vsize += this._getValLength(value);
 
-    // only add the keys and key-size if the key is new
-    if (!existent) {
-      this.stats.ksize += this._getKeyLength(key);
-      this.stats.keys++;
-    }
-    this.emit("set", key, value);
-    // return true
-    return true;
+  // only add the keys and key-size if the key is new
+  if (!existent) {
+    this.stats.ksize += this._getKeyLength(key);
+    this.stats.keys++;
+  }
+  this.emit("set", key, value);
+  // return true
+  return true;
 }
 
 /**
@@ -111,35 +115,35 @@ function set (key, value, ttl) {
 
 function del(keys) {
 
-    // _boundMethodCheck(this, Supacache)
+  // _boundMethodCheck(this, Supacache)
 
-    // make input an array if single key was passed in
-    if (!Array.isArray(keys)) {
-      keys = [keys];
+  // make input an array if single key was passed in
+  if (!Array.isArray(keys)) {
+    keys = [keys];
+  }
+  let delCount = 0;
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    // check for invalid keys
+    let err;
+    if ((err = this._isInvalidKey(key)) != null) {
+      throw err;
     }
-    let delCount = 0;
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-      // check for invalid keys
-      let err;
-      if ((err = this._isInvalidKey(key)) != null) {
-        throw err;
-      }
-      // only delete if existent
-      if (this.data[key]) {
-        // calc the stats
-        this.stats.vsize -= this._getValLength(this._unwrap(this.data[key]));
-        this.stats.ksize -= this._getKeyLength(key);
-        this.stats.keys--;
-        delCount++;
-        // delete the value
-        const oldVal = this.data[key];
-        delete this.data[key];
-        // return true
-        this.emit("del", key, oldVal.v);
-      }
+    // only delete if existent
+    if (this.data[key]) {
+      // calc the stats
+      this.stats.vsize -= this._getValLength(this._unwrap(this.data[key]));
+      this.stats.ksize -= this._getKeyLength(key);
+      this.stats.keys--;
+      delCount++;
+      // delete the value
+      const oldVal = this.data[key];
+      delete this.data[key];
+      // return true
+      this.emit("del", key, oldVal.v);
     }
-    return delCount;
+  }
+  return delCount;
 }
 
 /**
@@ -150,12 +154,12 @@ function del(keys) {
 
 
 function take(key) {
-    //  _boundMethodCheck(this, Supacache)
-    const _ret = this.get(key);
-    if ((_ret)) {
-      this.del(key);
-    }
-    return _ret;
+  //  _boundMethodCheck(this, Supacache)
+  const _ret = this.get(key);
+  if ((_ret)) {
+    this.del(key);
+  }
+  return _ret;
 }
 
 /**
@@ -166,30 +170,30 @@ function take(key) {
  */
 
 function ttl(key, ttl) {
-    
-    // _boundMethodCheck(this, Supacache)
-    ttl || (ttl = this.options.stdTTL);
-    if (!key) {
-      return false;
-    }
-    // check for invalid key types
-    let err;
-    if ((err = this._isInvalidKey(key)) != null) {
-      throw err;
-    }
-    // check whether data exists and update the ttl value
-    if (this.data[key] && this._check(key, this.data[key])) {
-      // if ttl < 0 delete the key. otherwise reset the value
-      if (ttl >= 0) {
-        this.data[key] = this._wrap(this.data[key].v, ttl);
-      } else {
-        this.del(key);
-      }
-      return true;
+
+  // _boundMethodCheck(this, Supacache)
+  ttl || (ttl = this.options.stdTTL);
+  if (!key) {
+    return false;
+  }
+  // check for invalid key types
+  let err;
+  if ((err = this._isInvalidKey(key)) != null) {
+    throw err;
+  }
+  // check whether data exists and update the ttl value
+  if (this.data[key] && this._check(key, this.data[key])) {
+    // if ttl < 0 delete the key. otherwise reset the value
+    if (ttl >= 0) {
+      this.data[key] = this._wrap(this.data[key].v, ttl);
     } else {
-      // return false if key not found
-      return false;
+      this.del(key);
     }
+    return true;
+  } else {
+    // return false if key not found
+    return false;
+  }
 }
 
 /**
@@ -199,31 +203,31 @@ function ttl(key, ttl) {
  */
 
 function getTtl(key) {
-    
-    // _boundMethodCheck(this, Supacache)
 
-    //return undefined if cache is in lru mode
+  // _boundMethodCheck(this, Supacache)
 
-    if (this.options.evictionPolicy === 'lru') {
-        return undefined
-    }
+  //return undefined if cache is in lru mode
 
-    if (!key) {
-      return undefined;
-    }
-    // handle invalid key types
-    let err
-    if ((err = this._isInvalidKey(key)) != null) {
-      throw err;
-    }
-    // check for existant data and update the ttl value
-    if ((this.data[key] != null) && this._check(key, this.data[key])) {
-      const _ttl = this.data[key].t;
-      return _ttl;
-    } else {
-      // return undefined if key has not been found
-      return undefined;
-    }
+  if (this.options.evictionPolicy === 'lru') {
+    return undefined
+  }
+
+  if (!key) {
+    return undefined;
+  }
+  // handle invalid key types
+  let err
+  if ((err = this._isInvalidKey(key)) != null) {
+    throw err;
+  }
+  // check for existant data and update the ttl value
+  if ((this.data[key] != null) && this._check(key, this.data[key])) {
+    const _ttl = this.data[key].t;
+    return _ttl;
+  } else {
+    // return undefined if key has not been found
+    return undefined;
+  }
 }
 
 /**
@@ -232,9 +236,9 @@ function getTtl(key) {
  */
 
 function keys() {
-    // _boundMethodCheck(this, Supacache);
-    let _keys = Object.keys(this.data);
-    return _keys;
+  // _boundMethodCheck(this, Supacache);
+  let _keys = Object.keys(this.data);
+  return _keys;
 }
 
 /**
@@ -244,10 +248,10 @@ function keys() {
  */
 
 function has(key) {
-    
-    // _boundMethodCheck(this, Supacache);
-    const _exists = (this.data[key] != null) && this._check(key, this.data[key]);
-    return _exists;
+
+  // _boundMethodCheck(this, Supacache);
+  const _exists = (this.data[key] != null) && this._check(key, this.data[key]);
+  return _exists;
 }
 
 /**
@@ -257,18 +261,18 @@ function has(key) {
 
 function getStats() {
 
-    // _boundMethodCheck(this, Supacache);
-    return this.stats;
+  // _boundMethodCheck(this, Supacache);
+  return this.stats;
 }
 
 /**
  * flushAll - flush all data and reset stats container
  */
 
-function flushAll () {
+function flushAll() {
 
   // _boundMethodCheck(this, Supacache);
-  
+
   // set data empty
   this.data = {};
   // reset stats
@@ -310,8 +314,8 @@ function flushStats() {
  */
 
 function close() {
-    // _boundMethodCheck(this, Supacache)
-    this._killCheckPeriod();
+  // _boundMethodCheck(this, Supacache)
+  this._killCheckPeriod();
 }
 
-module.exports = {get, set, take, del, ttl, getTtl, getStats, flushStats, flushAll, has, keys, close}
+module.exports = { get, set, take, del, ttl, getTtl, getStats, flushStats, flushAll, has, keys, close }

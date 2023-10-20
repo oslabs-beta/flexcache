@@ -1,6 +1,8 @@
 import type { NextRequest, NextResponse } from 'next/server';
 import fetch from 'node-fetch';
 import { setCache, getCache } from '@/cache';
+//import { connectToDataBase } from '@/database'
+//const supacache = require('/Users/PK/Desktop/codesmith/supacache/src/index.js');
 
 
 export const GET = async (req: NextRequest, res: NextResponse) => {
@@ -22,20 +24,25 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
         // Check cache first
         const cacheStart = process.hrtime(); // Start timer
         const cachedData = getCache(playerId);
+        console.log('cachedData is ', cachedData);
+        //const cachedData = false;
         const cacheDuration = process.hrtime(cacheStart); // Find timer difference
         cacheTime = cacheDuration[0] * 1000 + cacheDuration[1] / 1000000;  // Convert to ms
 
         if (cachedData) {
             data = cachedData;
+            console.log(data);
             fetchedFromCache = true;
             console.log(`in if(cacheData). Cached Data: ${cachedData}`);
         } else {
 
             // If not in cache, fetch from API
+            console.log('hi');
             const apiStart = process.hrtime();
             const apiResponse = await fetch(`https://balldontlie.io/api/v1/season_averages?season=2022&player_ids[]=${playerId}`);
             data = await apiResponse.json();
-            console.log(`in else statement in speedTest. Fetched Data: ${apiResponse}`);
+            console.log(`in else statement in speedTest. Fetched Data: ${data}`);
+            console.log(data);
 
             const apiDuration = process.hrtime(apiStart);
             externalTime = apiDuration[0] * 1000 + apiDuration[1] / 1000000;

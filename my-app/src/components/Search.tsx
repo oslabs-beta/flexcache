@@ -76,9 +76,10 @@ const Search: React.FC = () => { // FC stands for Function Component
 
             // Check if data object exists and that it's not empty
             if (data.playerData) {
+                //const playerStats = data.playerData.data[0];
                 const playerStats = data.playerData.data[0];
 
-                // console.log(data.playerData);
+                console.log(data.playerData[0]);
 
                 // Combine player info and player stats (fetched differently from external api)
                 setSelectedPlayer({

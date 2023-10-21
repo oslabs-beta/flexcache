@@ -23,7 +23,7 @@
 //     return value;
 // };
 
-const Supacache = require('/Users/PK/Desktop/codesmith/supacache/src/index.js');
+const Supacache = require('../../src/index.js');
 
 const supacache = new Supacache();
 

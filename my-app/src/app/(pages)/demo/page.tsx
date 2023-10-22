@@ -48,6 +48,5 @@ export default function Page() {
                 </div> */}
             < Search />
         </>
-        // < Search />
     );
 }

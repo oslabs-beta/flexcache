@@ -106,8 +106,6 @@ const Search: React.FC = () => { // FC stands for Function Component
             <div className='mx-auto my-auto max-w-5xl text-center text-5xl sm:px-50'>
                 <h1>Discover your favorite Player</h1>
             </div>
-            {/* <div className='mt-10 flex flex-col items-center justify-center gap-x-6'> */}
-
             <div className='mt-10 flex flex-col items-center justify-center gap-x-6 relative'>
                 <Combobox value={'Enter player name'}>
                     <div className="relative flex items-center border rounded w-half">

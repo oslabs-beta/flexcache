@@ -4,8 +4,14 @@ export default function Terminal() {
 	const [output, setOutput] = useState("");
   const contentToPrint = [
     'import {flexcache} from "flexcache"',
-    'more messages...',
-    'etc...',
+		'',
+    'const cache = new flexcache',
+    '',
+		'flexcache.set( key, value, optional) //',
+		'',
+		'flexcache.get( key, value ) //',
+		'',
+		'flexcache.'
   ];
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);

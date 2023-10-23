@@ -8,7 +8,6 @@ export const GET = async (req: NextRequest, res: NextResponse) => {
     try {
         const response = await fetch(`https://balldontlie.io/api/v1/players?search=${query}&`);
         const data = await response.json();
-        console.log(data);
         return new Response(JSON.stringify(data), { status: 200 });
 
     } catch (error) {

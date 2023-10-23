@@ -107,14 +107,12 @@ const Search: React.FC = () => { // FC stands for Function Component
             <div className='mx-auto my-auto max-w-5xl text-center text-5xl sm:px-50'>
                 <h1>Discover your favorite Player</h1>
             </div>
-            {/* <div className='mt-10 flex flex-col items-center justify-center gap-x-6'> */}
-
             <div className='mt-10 flex flex-col items-center justify-center gap-x-6 relative'>
                 <Combobox value={'Enter player name'}>
                     <div className="relative flex items-center border rounded w-half">
                         <Combobox.Input
                             className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-slate-200 focus:ring-0"
-                            displayValue={(player) => player.first_name}
+                            displayValue={(player: any) => player.first_name}
                             onChange={handleSearchChange}
                         />
                         <Combobox.Button className="absolute flex items-center justify-center inset-y-0 right-0 pr-2">

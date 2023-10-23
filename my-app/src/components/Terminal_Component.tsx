@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ClipboardJS from "clipboard";
 
 export default function Terminal() {
   const [output, setOutput] = useState("");
@@ -9,8 +8,7 @@ export default function Terminal() {
     'const flexCache = new flexCache();',
     '',
     'flexCache.set( key, value, optional)',
-    '',
-    'Ok!'
+    ''
   ];
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
@@ -43,11 +41,6 @@ export default function Terminal() {
     return () => clearInterval(interval);
   }, [currentMessageIndex, currentCharacterIndex]);
 
-  useEffect(() => {
-    // Initialize ClipboardJS to enable copying the code
-    new ClipboardJS(".copy-button");
-  }, []);
-
   return (
     <div className="lg:grid grid-cols-2 gap-x-10 items-center container max-w-[85rem] mx-auto px-4 sm:px-8 pt-20 pb-28">
       <div>
@@ -63,7 +56,6 @@ export default function Terminal() {
           <pre className="text-gray-100 text-sm" style={{ fontFamily: "Menlo, monospace" }}>
             {output}
           </pre>
-          <button className="bg-gray-500 text-white px-4 py-2 rounded absolute top-4 right-4" data-clipboard-target=".output"> icon </button>
         </div>
       </div>
     </div>

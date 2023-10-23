@@ -18,12 +18,23 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  /* background: radial-gradient(ellipse at center,
+      rgba(52, 60, 131, 1) 0%,
+      rgba(0, 0, 0, 1) 100%); */
+  /* z-index: -10;
+  min-height: 100vh; */
+  margin: 0;
+  padding: 0;
+  position: relative;
+  /* overflow: hidden; */
+  /* inset: 0px;
+  transform: scale(1); */
+}
+
+html {
   background: radial-gradient(ellipse at center,
       rgba(52, 60, 131, 1) 0%,
       rgba(0, 0, 0, 1) 100%);
-  z-index: -10;
-  content: "";
-  position: absolute;
-  inset: 0px;
-  transform: scale(1);
+  min-height: 100%;
+
 }

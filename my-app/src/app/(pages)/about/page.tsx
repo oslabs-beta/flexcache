@@ -1,4 +1,10 @@
-// `app/dashboard/page.tsx` is the UI for the `/dashboard` URL
+import Team from '@/components/Team';
+
 export default function Page() {
-    return <h1>Hello, About Page!</h1>;
+
+    return (
+        <main className='isolate'>
+            <Team />
+        </main>
+    )
 }

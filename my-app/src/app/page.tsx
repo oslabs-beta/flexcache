@@ -24,9 +24,9 @@ export default function Hero() {
             <SecondaryButton icon={<Github />} text='GitHub' />
           </Link>
         </div>
+      </div>
       <span className='font-bold text-white text-3xl mx-auto mt-6 leading-8'>Quick Start</span>
       <Terminal />
     </div>
-  </main>
   )
 }

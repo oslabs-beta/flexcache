@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "cross-fetch": "^4.0.0",
     "heroicons": "^2.0.18",
     "next": "13.5.4",
     "node-cache": "^5.1.2",

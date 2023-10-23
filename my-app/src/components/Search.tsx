@@ -6,6 +6,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
 type Player = {
     id: number;
+    player_id: string,
     first_name: string;
     last_name: string;
     team: { name: string };
@@ -35,10 +36,8 @@ const Search: React.FC = () => { // FC stands for Function Component
             const timeoutId = setTimeout(() => {
                 fetch(`/api/searchPlayers?search=${searchTerm}`)
                     .then(res => res.json())
-                    .then(data => {
-                        if (data && data.data) { // return looks like {data: [{players}] }
-                            setResults(data.data);
-                        }
+                    .then(data => { // return looks like {data: [{players}] }
+                        setResults(data.data);
                     })
                     .catch(error => console.error('Error fetching player data:', error));
             }, 500); //500ms
@@ -77,26 +76,30 @@ const Search: React.FC = () => { // FC stands for Function Component
             // Check if data object exists and that it's not empty
             if (data.playerData) {
                 //const playerStats = data.playerData.data[0];
-                const playerStats = data.playerData.data[0];
-
-                console.log(data.playerData[0]);
+                const playerStats = data.playerData.data;
 
                 // Combine player info and player stats (fetched differently from external api)
                 setSelectedPlayer({
                     ...playerInfo,
-                    ...playerStats,
+                    ...playerStats
                 });
             }
+
+            //console.log('selected player is ', selectedPlayer);
             // console.log(playerInfo);
             // console.log(selectedPlayer);
 
             // Clear the results to hide the dropdown
             setResults([]);
 
+            console.log('selected player is ', selectedPlayer);
+
         } catch (error) {
             console.error('Error fetching player stats:', error);
         }
     };
+
+    //console.log('selected player is ', selectedPlayer);
 
 
     return (
@@ -149,7 +152,7 @@ const Search: React.FC = () => { // FC stands for Function Component
                             {selectedPlayer.first_name} {selectedPlayer.last_name}
                         </strong>
                         <br />
-                        Team: {selectedPlayer.team.name}
+                        Player ID: {selectedPlayer.player_id}
                         <br />
                         Position: {selectedPlayer.position}
                         <br />
@@ -158,26 +161,12 @@ const Search: React.FC = () => { // FC stands for Function Component
                         Weight: {selectedPlayer.weight_pounds} lbs
                         <br />
                         <br />
-                        <b>
-                            Season Average Stats
-                        </b>
-                        <div>
-                            Points: {selectedPlayer.pts}
-                            <br />
-                            Assists: {selectedPlayer.ast}
-                            <br />
-                            Rebounds: {selectedPlayer.reb}
-                            <br />
-                            Steals: {selectedPlayer.stl}
-                            <br />
-                            Blocks: {selectedPlayer.blk}
-                        </div>
                         <br />
                         <b>
                             Speed Test Results
                         </b>
                         <div>
-                            External API Time: {externalTime} ms
+                            MongoDB Fetch Time: {externalTime} ms
                             <br />
                             Supacache Time: {cacheTime} ms
                         </div>

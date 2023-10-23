@@ -106,7 +106,7 @@
 
 			//Check if key is valid
 			let err;
-			if (err = this.#isInvalidKey(keys)) {
+			if (err = this.#isInvalidKey(key)) {
 				throw err;
 			}
 			

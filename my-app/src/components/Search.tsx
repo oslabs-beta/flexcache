@@ -80,8 +80,7 @@ const Search: React.FC = () => { // FC stands for Function Component
 
                 // Combine player info and player stats (fetched differently from external api)
                 setSelectedPlayer({
-                    ...playerInfo,
-                    ...playerStats
+                    ...data.playerData
                 });
             }
 

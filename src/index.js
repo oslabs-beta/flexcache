@@ -91,59 +91,54 @@
 
 		/**
 		 * get - Get a cached key and change the stats. Takes either a key or an array of keys
-		 * @param {array | string | number} keys
-		 * @returns {object | any}: value from cache
+		 * @param {array | string | number} key
+		 * @returns {any | array}: value from cache or array of key/value pairs
 		 */
 
-		get(keys) {
+		get(key) {
 
 			this.#boundMethodCheck(this, Supacache)
 
-			let isArray = true;
-
-			// If keys is not an array, convert to array with one key
-			if (!Array.isArray(keys)) {
-			  isArray = false;
-			  keys = [keys];
+			// If keys is an array, call and return mget
+			if (Array.isArray(key)) {
+			  return this.#mget(key)
 			}
 
-			// Define the return object
-			const objectReturn = {};
-
-			for (let i = 0; i < keys.length; i++) {
-			  const key = keys[i];
-
-			  //Check if key is valid
-			  let err;
-			  if (err = this.#isInvalidKey(key)) {
+			//Check if key is valid
+			let err;
+			if (err = this.#isInvalidKey(keys)) {
 				throw err;
-			  }
-
-			  // Get data and increment stats
-			  if (this.data[key] && this.#check(key, this.data[key])) {
+			}
+			
+			let ret;
+			// Get data and modify stats
+			if (this.data[key] && this.#check(key, this.data[key])) {
 				this.stats.hits++;
-				objectReturn[key] = this.#unwrap(this.data[key]);
+				ret = this.#unwrap(this.data[key]);
 			  } else {
 				// If not found, return undefined
 				this.stats.misses++;
-				objectReturn[key] = undefined
+				ret = undefined;
 			  }
-			}
-
-			// If a single key was provided, return the value directly; otherwise, return an object
-			return isArray ? objectReturn : objectReturn[keys[0]]
+			return ret
 		}
 
 		/**
-		 * set - cache a key and change the stats. Takes either a key, value, and optional ttl, or an array of objects with key, value, and ttl properties
-		 * @param {string | number} key: key to cache
-		 * @param {any} value: element to cache
-		 * @param {number} [ttl] - (optional) - value for time to live for cache instances in ttl mode
+		 * set - cache a key and change the stats. Takes either a key, value, and optional ttl, or an array of objects with key, value, and ttl properties for each input
+		 * @param {string | number} keyORKeyValueSet: key to cache or array of key value pairs
+		 * @param {any} value: - (optional) -  element to cache
+		 * @param {number} ttl - (optional) - value for time to live for cache instances in ttl mode
 		 */
 
-		set(key, value, ttl) {
+		set(keyORKeyValueSet, value, ttl) {
 
 			this.#boundMethodCheck(this, Supacache)
+
+
+			// call mset if array is passed in
+			if (Array.isArray(keyORKeyValueSet)) {
+				return this.#mset(keyORKeyValueSet)
+			}
 
 			// handle full cache for ttl mode
 			if (this.stats.keys >= this.options.maxKeys && this.options.evictionPolicy === 'ttl') {
@@ -168,7 +163,7 @@
 
 			//Check if key is valid
 			let err;
-			if (err = this.#isInvalidKey(key)) {
+			if (err = this.#isInvalidKey(keyORKeyValueSet)) {
 				throw err;
 			}
 
@@ -176,20 +171,20 @@
 			let existent = false;
 
 			// remove existing data from stats
-			if (this.data[key]) {
+			if (this.data[keyORKeyValueSet]) {
 				existent = true;
-				this.stats.vsize -= this.#getValLength(this.#unwrap(this.data[key]));
+				this.stats.vsize -= this.#getValLength(this.#unwrap(this.data[keyORKeyValueSet]));
 			}
 			// set the value (ttl will be ignored if in lru mode)
-			this.data[key] = this.#wrap(value, ttl);
+			this.data[keyORKeyValueSet] = this.#wrap(value, ttl);
 			this.stats.vsize += this.#getValLength(value);
 
 			// only add the keys and key-size if the key is new
 			if (!existent) {
-			this.stats.ksize += this.#getKeyLength(key);
+			this.stats.ksize += this.#getKeyLength(keyORKeyValueSet);
 			this.stats.keys++;
 			}
-			this.emit("set", key, value);
+			this.emit("set", keyORKeyValueSet, value);
 			// return true
 			return true;
 		}
@@ -209,7 +204,8 @@
 			if (!Array.isArray(keys)) {
 				keys = [keys];
 			}
-			let delCount = 0;
+
+			// validate all passed in keys before deleting
 			for (let i = 0; i < keys.length; i++) {
 				const key = keys[i];
 				// check for invalid keys
@@ -217,9 +213,15 @@
 				if (err = this.#isInvalidKey(key)) {
 					throw err;
 				}
-				// only delete if existent
+			}
+
+			// delete existant keys
+			let delCount = 0;
+
+			for (let i = 0; i < keys.length; i ++){
+				const key = keys[i];
 				if (this.data[key]) {
-				// calc the stats
+				// adjust stats
 					this.stats.vsize -= this.#getValLength(this.#unwrap(this.data[key]));
 					this.stats.ksize -= this.#getKeyLength(key);
 					this.stats.keys--;
@@ -228,9 +230,11 @@
 					const oldVal = this.data[key];
 					delete this.data[key];
 				// return true
-					this.emit("del", key, oldVal.v);
+					this.emit("del", key, oldVal.value);
 				}
+
 			}
+		
 			return delCount;
 		}
 
@@ -463,10 +467,10 @@
 				throw err
 			}
 
-
+			// validate all inputs before setting
 			for (let i = 0; i < keyValuePairs.length; i++) {
-				keyValuePair = keyValuePairs[i]
-				const {key, value, ttl} = keyValuePair
+				const keyValuePair = keyValuePairs[i]
+				const {key, ttl} = keyValuePair
 				// check if ttl is a number
 				if (ttl && typeof ttl !== "number") {
 					const err = this._error("ETTLTYPE");
@@ -479,14 +483,13 @@
 			}
 
 			for (let j = 0; j < keyValuePairs.length; j++){
-				keyValuePair = keyValuePairs[i]
+				const keyValuePair = keyValuePairs[i]
 				const {key, value, ttl} = keyValuePair
 				this.set(key, value, ttl)
 			}
 			return true
 			
 		}
-
 
 
 		/**

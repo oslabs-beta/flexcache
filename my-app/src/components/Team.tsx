@@ -39,13 +39,17 @@ export default function Team() {
         <div className='mx-auto mt-20 max-w-7xl px-6 sm:mt-48 lg:px-8'>
             <div className='mx-auto max-w-2xl lg:mx-0'>
                 <h2 className='text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl'>Our team</h2>
+                <p className="mt-6 text-lg leading-8 text-gray-400">
+                    We’re a dynamic group of individuals who are passionate and dedicated to deliverying amazing software.
+                </p>
             </div>
+
             <ul
                 role='list'
-                className='mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center md:grid-cols-4 lg:mx-0 lg:max-w-none'
+                className='mx-auto my-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-12 text-center md:grid-cols-4 lg:mx-0 lg:max-w-none'
             >
                 {team.map((person) => (
-                    <li key={person.name}>
+                    <li key={person.name} className='bg-slate-00 rounded-3xl sm:py-12'>
                         <Image
                             src={person.imageUrl}
                             width={200}

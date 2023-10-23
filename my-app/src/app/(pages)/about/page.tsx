@@ -5,7 +5,7 @@ export default function Page() {
 
     return (
         <main className='isolate'>
-            <Team />;
+            <Team />
         </main>
     )
 }

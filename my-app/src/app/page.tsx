@@ -8,7 +8,7 @@ import Terminal from '@/components/Terminal_Component';
 
 export default function Hero() {
   return (
-    <div>
+    <main>
       <div className='px-6 py-54 sm:px-6 sm:py-32 lg:px-8'>
         <div className='mx-auto my-auto max-w-5xl text-center'>
           <h2 className='text-3xl font-bold tracking-tight text-white sm:text-7xl'>
@@ -26,9 +26,9 @@ export default function Hero() {
             </Link>
           </div>
         </div>
-      </div>
-      <span className='flex text-3xl tracking-tight text-white sm:text-4xl'>Quick Start</span>
+      <span className='font-bold text-white text-3xl mx-auto mt-6 leading-8'>Quick Start</span>
       <Terminal />
     </div>
+  </main>
   )
 }

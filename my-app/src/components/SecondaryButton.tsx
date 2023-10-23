@@ -1,3 +1,4 @@
+import { Autour_One } from 'next/font/google'
 import React from 'react'
 
 export default function SecondaryButton({ icon, text }: { icon?: React.ReactNode, text: string }) {

@@ -1,8 +1,10 @@
+'use client';
 
 import Link from 'next/link';
 import MainButton from '@/components/MainButton';
 import SecondaryButton from '@/components/SecondaryButton';
 import Github from '@/icons/github';
+import Terminal from '@/components/Terminal_Component';
 
 export default function Hero() {
   return (
@@ -22,7 +24,9 @@ export default function Hero() {
             <SecondaryButton icon={<Github />} text='GitHub' />
           </Link>
         </div>
-      </div>
+      <span className='font-bold text-white text-3xl mx-auto mt-6 leading-8'>Quick Start</span>
+      <Terminal />
     </div>
-  );
+  </main>
+  )
 }

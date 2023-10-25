@@ -1,3 +1,4 @@
+import React from 'react'
 import { ArrowPathIcon, CloudArrowUpIcon, LockClosedIcon } from '@heroicons/react/20/solid'
 
 const features = [

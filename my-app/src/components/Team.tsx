@@ -6,28 +6,28 @@ import Link from 'next/link';
 const team = [
     {
         name: 'Charlie Woodlief',
-        role: 'Co-Founder / CTO',
+        role: 'Software Engineer',
         imageUrl: '/charlie.png',
         linkedin: 'charlie-woodlief-b70a19168',
         github: 'cwoodlief26',
     },
     {
         name: 'Brian Yang',
-        role: 'Co-Founder / CTO',
+        role: 'Software Engineer',
         imageUrl: '/brian.png',
         linkedin: 'brian-yang-profile',
         github: 'brian-yg',
     },
     {
         name: 'Pravek Karwe',
-        role: 'Co-Founder / CTO',
+        role: 'Software Engineer',
         imageUrl: '/pk.png',
         linkedin: 'pravek-karwe',
         github: 'pkarwe62',
     },
     {
         name: 'Jake Bayar',
-        role: 'Co-Founder / CTO',
+        role: 'Software Engineer',
         imageUrl: '/jake.png',
         linkedin: 'jakebayar',
         github: 'jakebayar',

@@ -11,7 +11,6 @@ import DemoButton from './MainButton';
 // Navigation object
 const navigation = [
     { name: 'Features', href: '/features' },
-    { name: 'Resources', href: '/resources' },
     { name: 'Docs', href: '/docs' },
     { name: 'About', href: '/about' },
 ];

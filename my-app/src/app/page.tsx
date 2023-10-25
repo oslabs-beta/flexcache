@@ -5,6 +5,7 @@ import MainButton from '@/components/MainButton';
 import SecondaryButton from '@/components/SecondaryButton';
 import Github from '@/icons/github';
 import Terminal from '@/components/Terminal_Component';
+import Features from '@/components/Features';
 
 export default function Hero() {
   return (

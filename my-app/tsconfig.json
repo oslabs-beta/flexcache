@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/components/Footer.jsx"  ],
+, "src/components/Footer.tsx"  ],
   "exclude": [
     "node_modules"
   ]

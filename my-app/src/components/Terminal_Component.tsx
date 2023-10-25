@@ -44,9 +44,23 @@ export default function Terminal() {
   return (
     <div className="lg:grid grid-cols-2 gap-x-10 items-center container max-w-[85rem] mx-auto px-4 sm:px-8 pt-20 pb-28">
       <div>
-        <span>Before you implement flex-cache into your code, first npm install flex-cache!</span>
+        <h1 className="font-bold text-white text-3xl mx-auto mt-6 leading-8'">Built For Developers</h1>
+        <br></br>
+        <span>An open source module flex-cache that allows NodeJS users to add a server side cache to their applications with support for multiple eviction policies (TTL, LRU) and data persistence across server restarts</span>
+        <br></br>
+        <br></br>
+        <span>Persistent</span>
+        <br></br>
+        <br></br>
+        <span>Configurable Eviction Policies</span>
+        <br></br>
+        <br></br>
+        <span>Fast</span>
+        <br></br>
+        <br></br>
+        <span>To get started, npm install flex-cache</span>
       </div>
-      <div style={{ backgroundColor: "rgba(169, 169, 169, 0.12)" }} className="p-4 rounded-xl shadow-md mb-4">
+      <div style={{ backgroundColor: "rgba(169, 169, 169, 0.12)" }} className="p-2 rounded-xl shadow-md mb-4">
         <div className="flex items-center justify-start bg-gray-700 p-2 rounded-t-xl">
           <div className="h-3 w-3 bg-red-500 rounded-full mx-1"></div>
           <div className="h-3 w-3 bg-yellow-500 rounded-full mx-1"></div>

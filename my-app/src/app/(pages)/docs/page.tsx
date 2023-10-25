@@ -1,4 +1,5 @@
-// `app/dashboard/page.tsx` is the UI for the `/dashboard` URL
+import React from "react";
+
 export default function Page() {
     return <h1>Hello, Docs Page!</h1>;
 }

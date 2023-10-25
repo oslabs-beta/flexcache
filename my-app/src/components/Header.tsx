@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, StarIcon } from '@heroicons/react/24/outline';
@@ -11,7 +11,6 @@ import DemoButton from './MainButton';
 // Navigation object
 const navigation = [
     { name: 'Features', href: '/features' },
-    { name: 'Resources', href: '/resources' },
     { name: 'Docs', href: '/docs' },
     { name: 'About', href: '/about' },
 ];

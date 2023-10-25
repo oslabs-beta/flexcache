@@ -25,7 +25,29 @@ export default function Hero() {
           </Link>
         </div>
       </div>
-      <span className='font-bold text-white text-3xl mx-auto mt-6 leading-8'>Quick Start</span>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+
       <Terminal />
     </div>
   )

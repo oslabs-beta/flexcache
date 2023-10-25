@@ -6,28 +6,28 @@ import Link from 'next/link';
 const team = [
     {
         name: 'Charlie Woodlief',
-        role: 'Co-Founder / CTO',
+        role: 'Software Engineer',
         imageUrl: '/charlie.png',
         linkedin: 'charlie-woodlief-b70a19168',
         github: 'cwoodlief26',
     },
     {
         name: 'Brian Yang',
-        role: 'Co-Founder / CTO',
+        role: 'Software Engineer',
         imageUrl: '/brian.png',
         linkedin: 'brian-yang-profile',
         github: 'brian-yg',
     },
     {
         name: 'Pravek Karwe',
-        role: 'Co-Founder / CTO',
+        role: 'Software Engineer',
         imageUrl: '/pk.png',
         linkedin: 'pravek-karwe',
         github: 'pkarwe62',
     },
     {
         name: 'Jake Bayar',
-        role: 'Co-Founder / CTO',
+        role: 'Software Engineer',
         imageUrl: '/jake.png',
         linkedin: 'jakebayar',
         github: 'jakebayar',
@@ -38,7 +38,7 @@ export default function Team() {
     return (
         <div className='mx-auto my-20 max-w-7xl px-6 sm:mt-24 lg:px-8'>
             <div className='mx-auto max-w-2xl lg:mx-0'>
-                <h2 className='text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl'>Our team</h2>
+                <h2 className='text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl'>Meet the Team!</h2>
                 <p className="mt-6 text-lg leading-8 text-gray-400">
                     We’re a dynamic group of individuals who are passionate and dedicated to deliverying amazing software.
                 </p>

@@ -9,6 +9,7 @@ import MainButton from '../components/MainButton';
 import SecondaryButton from '../components/SecondaryButton';
 import Terminal from '../components/Terminal_Component';
 import Team from '../components/Team';
+import Copy from '../components/Copy';
 
 // Icons
 import Github from '../icons/github';
@@ -50,6 +51,7 @@ export default function Hero() {
             <SecondaryButton icon={<Github />} text='GitHub' />
           </Link>
         </div>
+        <Copy />
 
       </div>
       {/* Features Section */}

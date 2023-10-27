@@ -35,8 +35,8 @@ export default function Features() {
                         Everything you need to cache your app
                     </p>
                     <p className="mt-6 text-lg leading-8 text-gray-600">
-                        Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum
-                        pulvinar et feugiat blandit at. In mi viverra elit nunc.
+                        It is a long established fact that a reader will be distracted by the readable content of a page when
+                        looking at its layout.
                     </p>
                 </div>
                 <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">

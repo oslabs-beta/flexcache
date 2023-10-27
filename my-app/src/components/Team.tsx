@@ -39,7 +39,8 @@ const team = [
 
 export default function Team() {
     return (
-        <div className='mx-auto my-20 max-w-7xl px-6 sm:mt-24 lg:px-8'>
+        <div className='mx-auto  my-10 max-w-7xl px-6 sm:mt-24 lg:px-8'>
+
             <div className='mx-auto max-w-2xl lg:mx-0'>
                 <h2 className='text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl'>Meet the Team!</h2>
                 <p className="mt-6 text-lg leading-8 text-gray-400">
@@ -49,7 +50,7 @@ export default function Team() {
 
             <ul
                 role='list'
-                className='mx-auto my-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-12 text-center md:grid-cols-4 lg:mx-0 lg:max-w-none'
+                className='mx-auto my-10 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-12 text-center md:grid-cols-4 lg:mx-0 lg:max-w-none'
             >
                 {team.map((person) => (
                     <li key={person.name} className='bg-slate-00 rounded-3xl sm:py-12'>

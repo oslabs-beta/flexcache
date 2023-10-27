@@ -43,16 +43,19 @@ export default function Hero() {
         </p>
 
         {/* Action Buttons */}
-        <div className='mt-10 flex items-center justify-center gap-x-6'>
+        {/* <div className='mt-10 flex items-center justify-center gap-x-6'>
           <Link href={'/demo'}>
             <MainButton text='Try Demo' />
           </Link>
           <Link href={'https://github.com/oslabs-beta/supacache'}>
             <SecondaryButton icon={<Github />} text='GitHub' />
           </Link>
-        </div>
-        <Copy />
+        </div> */}
 
+        {/* Click to Copy */}
+        <div className='my-10 flex flex-col items-center justify-center'>
+          <Copy />
+        </div>
       </div>
       {/* Features Section */}
       <Features />

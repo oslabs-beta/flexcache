@@ -66,16 +66,12 @@ export default function Team() {
 
                         <div className='flex justify-center items-center flex-row gap-2 mt-3'>
                             <Link href={`https://github.com/${person.github}`}>
-                                <button
-                                    type="button"
-                                >
+                                <button type="button">
                                     <Github />
                                 </button>
                             </Link>
                             <Link href={`https://www.linkedin.com/in/${person.linkedin}`}>
-                                <button
-                                    type="button"
-                                >
+                                <button type="button">
                                     <LinkedIn />
                                 </button>
                             </Link>

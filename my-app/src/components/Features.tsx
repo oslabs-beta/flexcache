@@ -1,61 +1,69 @@
 import React from 'react'
 import { ArrowPathIcon, CloudArrowUpIcon, LockClosedIcon } from '@heroicons/react/20/solid'
 
+import { CubeTransparentIcon, AdjustmentsHorizontalIcon, Square2StackIcon, CheckCircleIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
+
+
 const features = [
     {
         name: 'Open Source',
         description:
             'Built open source, Free for open source',
         href: '#',
-        icon: CloudArrowUpIcon,
+        icon: CubeTransparentIcon,
     },
     {
         name: 'Easy to Use',
         description:
             'Integrating should be as adding few lines',
         href: '#',
-        icon: LockClosedIcon,
+        icon: CheckCircleIcon,
     },
     {
         name: 'Configurable',
         description:
             'Built in templates but configure to your liking',
         href: '#',
-        icon: ArrowPathIcon,
+        icon: AdjustmentsHorizontalIcon,
     },
 ]
 
 export default function Features() {
     return (
-        <div className=" py-24 sm:py-32">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="mx-auto max-w-2xl lg:text-center">
-                    <h2 className="text-base font-semibold leading-7 text-indigo-600">Cache faster</h2>
-                    <p className="mt-2 text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl">
-                        Everything you need to cache your app
-                    </p>
-                    <p className="mt-6 text-lg leading-8 text-gray-600">
-                        It is a long established fact that a reader will be distracted by the readable content of a page when
-                        looking at its layout.
-                    </p>
-                </div>
-                <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-                    <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-                        {features.map((feature) => (
-                            <div key={feature.name} className="flex flex-col">
-                                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-green-2åß00">
-                                    <feature.icon className="h-5 w-5 flex-none text-green-400" aria-hidden="true" />
-                                    {feature.name}
-                                </dt>
-                                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-400">
-                                    <p className="flex-auto">{feature.description}</p>
-                                </dd>
-                            </div>
-                        ))}
-                    </dl>
-                </div>
-            </div>
-        </div>
 
+        <div
+            className="mx-20 my-40 gap-4 grid grid-cols-1 md:grid-cols-3 rounded-xl border border-white/[.15] p-4 bg-neutral-600/20 backdrop-blur"
+            style={{
+                boxShadow: '0 4px 15px rgba(0, 0, 0, .2)'
+            }}
+        >
+            <div className="md:col-span-3 flex flex-col items-center justify-center border border-white/[.25] rounded-lg bg-black/[.12] h-60 z-1"
+                style={{
+                    boxShadow: 'inset 0 -30px 40px 19px rgba(56, 61, 197, .08) ,0 6px 20px rgba(93, 109, 166, .15)'
+                }}>
+                <p className='text-indigo-400'>Cache Faster</p>
+                <h1 className='text-4xl font-bold'>Your Ultimate Caching Toolkit</h1>
+                <p className='text-md font-light text-slate-400'>With a focus on simplicity and speed, our caching solutions seamlessly blend into
+                    your platform for an immediate performance boost.</p>
+            </div>
+            {features.map((feature) => (
+                <div
+                    key={feature.name}
+                    className="flex flex-col items-center justify-center p-10 rounded-lg h-60 border border-white/[.2] hover:border-blue-400/[.7]  bg-black/[.15]"
+                    style={{
+                        boxShadow: 'inset 0 -30px 40px 19px rgba(59, 63, 166, .08) ,0 6px 20px rgba(93, 109, 166, .15)'
+                    }}>
+                    <dt className="flex flex-col items-center text-center gap-x-3 text-base font-semibold leading-7 text-green-2åß00">
+                        <feature.icon className="h-10 w-10 mb-3 flex-none text-green-400" aria-hidden="true" />
+                        <p className='text-xl'>
+                            {feature.name}
+                        </p>
+                    </dt>
+                    <dd className="mt-4 flex flex-auto flex-col px-10 text-center leading-7 text-slate-400">
+                        <p className="flex-auto">{feature.description}</p>
+                    </dd>
+                </div>
+            ))}
+        </div>
     )
 }

@@ -2,8 +2,8 @@ import { useState } from "react";
 import React from "react";
 
 import SecondaryButtonRightIcon from "./SecondaryButtonRightIcon";
-
-import { ClipboardDocumentIcon, ClipboardDocumentCheckIcon, ChatBubbleBottomCenterIcon } from "@heroicons/react/20/solid";
+import { Square2StackIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+// import { ClipboardDocumentIcon, ClipboardDocumentCheckIcon, ChatBubbleBottomCenterIcon } from "@heroicons/react/20/solid";
 
 
 export default function Copy() {
@@ -34,12 +34,12 @@ export default function Copy() {
         <div onClick={handleClick}>
             {copied ?
                 <SecondaryButtonRightIcon
-                    icon={<ClipboardDocumentCheckIcon className="h-t w-5 mx-3" />}
+                    icon={<CheckCircleIcon className="h-t w-5 mx-3" />}
                     text={textToCopy}
                 />
                 :
                 <SecondaryButtonRightIcon
-                    icon={<ClipboardDocumentIcon className="h-t w-5 mx-3" />}
+                    icon={<Square2StackIcon className="h-t w-5 mx-3" />}
                     text={textToCopy}
                 />
             }

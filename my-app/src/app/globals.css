@@ -22,7 +22,7 @@ body {
       rgba(52, 60, 131, 1) 0%,
       rgba(0, 0, 0, 1) 100%); */
   /* z-index: -10;
-  min-height: 100vh; */
+  /* min-height: 100vh; */
   margin: 0;
   padding: 0;
   position: relative;
@@ -36,6 +36,7 @@ body {
   color: rgb(var(--foreground-rgb));
   margin: 0;
   padding: 0;
+  height: fit-content;
 }
 
 html {
@@ -44,7 +45,7 @@ html {
       rgba(0, 0, 0, 1) 100%);
 }
 
-body,
+/* body, */
 html {
   height: 100%;
   margin: 0;

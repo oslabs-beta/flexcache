@@ -46,27 +46,36 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className='mt-10 px-6 py-45 sm:px-6 sm:py-10 lg:px-8'>
-      <div className='mx-auto my-20 5 max-w-5xl text-center sm:my-20'>
+    <div className='py-4 sm:px-6 sm:py-10 lg:px-8 xl:mt-20'>
+      <div className='mx-auto my-10 5 max-w-5xl text-center sm:my-20'>
         {/* ... Notification bubbles on top ... */}
         <div className="mt-15 sm:mt-32 lg:mt-16">
-          <div className="inline-flex space-x-6">
+          <div className="inline-flex space-x-1">
             <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-semibold leading-6 text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
-              Latest updates
+              Latest update:
+              <Link
+                href={'https://github.com/oslabs-beta/supacache'}
+                className="inline-flex items-center px-1 text-sm font-medium leading-6 text-gray-300">
+                <span> Just shipped v1.0</span>
+                <ChevronRightIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
+              </Link>
             </span>
-            <Link href={'https://github.com/oslabs-beta/supacache'} className="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-300">
+            {/* <Link href={'https://github.com/oslabs-beta/supacache'} className="inline-flex items-center space-x- text-sm font-medium leading-6 text-gray-300">
               <span>Just shipped v1.0</span>
               <ChevronRightIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
-            </Link>
+            </Link> */}
           </div>
         </div>
         {/* Hero Section */}
-        <h2 className='my-8 text-6xl font-bold tracking-tight text-white sm:text-8xl'>
-          Configurable. Persistent. Fast.
-        </h2>
-        <p className='mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-300 sm:text-lr lr:text-2xl'>
-          Elevate your project with persistent caching and a fine-tuned Cache Invalidation Policy
-        </p>
+        <div className='flex flex-col items-center justify-center'>
+
+          <h2 className='my-8 mx-5 text-5xl font-bold tracking-tight text-white sm:text-8xl'>
+            Configurable. Persistent. Fast.
+          </h2>
+          <p className='mx-8 max-w-xl text-md leading-8 text-gray-300 sm:text-lr lr:text-2xl'>
+            Elevate your project with persistent caching and a fine-tuned Cache Invalidation Policy
+          </p>
+        </div>
         {/* Action Buttons */}
         {/* <div className='mt-10 flex items-center justify-center gap-x-6'>
           <Link href={'/demo'}>
@@ -83,8 +92,11 @@ export default function Hero() {
         </div>
       </div>
       {/* Features Section */}
-      <Features />
-      <p className="mt-2 text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl ml-32">Get Started</p>
+      <div className='p-3'>
+        <Features />
+
+      </div>
+      <p className="flex justify-center items-center text-3x text-slate-200 sm:text-4xl">Get Started</p>
       {/* Get Started/ Terminal */}
       {/* <div ref={terminalRef}>
         {isTerminalVisible && <Terminal />}

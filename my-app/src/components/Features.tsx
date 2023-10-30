@@ -31,13 +31,13 @@ const features = [
 export default function Features() {
     return (
         <div
-            className="xl:mx-60 lg:mx-20 lg:my-40 lg:p-4 md:grid-cols-3 md:mx-90 md:my-40 md:p-3 my-20 gap-3 grid grid-cols-1 p-2.5 rounded-xl border border-white/[.15]  bg-neutral-800/15 backdrop-blur shadow-[0_4px_15px_rgba(56,_61,_100,_.1)]"
+            className="xl:mx-60 lg:mx-20 lg:my-40 lg:p-4 md:grid-cols-3 md:mx-90 md:my-40 md:p-3 my-5 gap-3 grid grid-cols-1 p-2.5 rounded-xl border border-white/[.15]  bg-neutral-800/15 backdrop-blur shadow-[0_4px_15px_rgba(56,_61,_100,_.1)]"
             style={{
                 // boxShadow: '0 4px 15px rgba(0, 0, 0, .2)'
             }}
         >
 
-            <div className="md:col-span-3 md:py-20 flex flex-col items-center justify-center py-40 h-60 space-y-2 border rounded-lg bg-blue-900/[.08]
+            <div className="md:col-span-3 md:py-20 flex flex-col items-center justify-center py-40 h-60 space-y-5 border rounded-lg bg-blue-900/[.08]
             shadow-[0_10px_70px_rgba(56,_61,_197,_.2),inset_0px_-8px_40px_rgba(53,_63,_166,_.3)] hover:shadow-[0_10px_70px_rgba(96,_165,_250,_.15)] 
             border-white/[.25] hover:border-blue-400/[.7] 
             z-2"
@@ -48,7 +48,7 @@ export default function Features() {
                 <p className=' text-indigo-400'>
                     Cache Faster
                 </p>
-                <h1 className='px-20 text-2xl md:text-4xl font-bold text-center'>
+                <h1 className='px-10 text-2xl md:text-4xl font-bold text-center'>
                     Your Ultimate Caching Toolkit
                 </h1>
                 <p className='text-sm md:text-md text-center font-light text-slate-300 px-10 md:px-50 lr:px-60'>

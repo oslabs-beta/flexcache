@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 export default function Terminal() {
   const contentToPrint = [
-    { text: '//import FlexCache from npm flex-cache', color: 'gray'},
+    { text: '//import FlexCache from npm flex-cache', color: 'gray' },
     { text: '\nimport', color: 'lightskyblue' },
     { text: ' ', color: 'n/a' },
     { text: '{', color: 'silver' },
@@ -93,6 +93,8 @@ export default function Terminal() {
   const [output, setOutput] = useState([]);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
+  const [copied, setCopiedStatus] = useState<boolean>(false);
+
 
   const terminalRef = useRef(null);
 
@@ -103,8 +105,12 @@ export default function Terminal() {
         const currentText = currentMessage.text;
 
         if (currentCharacterIndex < currentText.length) {
-          setOutput((prevOutput: any) => [...prevOutput, { text: currentText[currentCharacterIndex], color: currentMessage.color }])
-          
+          setOutput((prevOutput: any) => [
+            ...prevOutput, {
+              text: currentText[currentCharacterIndex],
+              color: currentMessage.color
+            }])
+
           setCurrentCharacterIndex(currentCharacterIndex + 1);
         } else {
           setCurrentCharacterIndex(0);
@@ -121,48 +127,57 @@ export default function Terminal() {
 
     return () => clearInterval(interval);
   }, [currentMessageIndex, currentCharacterIndex]);
+
   return (
     <div
-    ref={terminalRef}
-    className="lg:grid grid-cols-2 gap-x-10 items-center container mx-auto px-4 sm:px-8 pt-20 pb-28">
+      ref={terminalRef}
+      className="lg:grid grid-cols-2 gap-x-10 items-center container mx-auto px-4 font-normal sm:px-8 py-10">
       <div>
-        <p className="font-bold tracking-tight">If you don't have a Node.js project set up, you'll have to create a file and cd into that directory.</p>
+        <p className="font-normal	 tracking-tight">If you don't have a Node.js project set up, you'll have to create a file and cd into that directory.</p>
         <br />
-        <p className="font-bold tracking-tight">run the following command in your terminal:</p>
+        <p className="tracking-tight">run the following command in your terminal:</p>
         <br />
-        <div style={{ backgroundColor: "rgba(169, 169, 169, 0.12)" }} className="p-2 rounded-xl shadow-md mb-4 mr-80">
-          <div className="flex justify-start bg-gray-700 p-2 rounded-t-xl">
-            <div className="h-3 w-3 bg-red-500 rounded-full mx-1"></div>
-            <div className="h-3 w-3 bg-yellow-500 rounded-full mx-1"></div>
-            <div className="h-3 w-3 bg-green-500 rounded-full mx-1"></div>
-          </div>
-          <div className="bg-gray-900 h-10 w-auto rounded-b-xl shadow-lg relative">
-          <pre className="text-gray-100 text-sm" style={{ fontFamily: "Menlo, monospace", position: "relative", top: "50%", transform: "translateY(-50%)", left: "10px"}}>npm init -y</pre>
-          </div>
-        </div>
-        <p className="font-bold tracking-tight">This will create a basic package.json file for your project.</p>
-        <br />
-        <p className="font-bold tracking-tight">Continue by installing the "flex-cache" npm package using the following command:</p>
-        <br />
-        <div style={{ backgroundColor: "rgba(169, 169, 169, 0.12)" }} className="p-2 rounded-xl shadow-md mb-4 mr-80">
-          <div className="flex justify-start bg-gray-700 p-2 rounded-t-xl">
-            <div className="h-3 w-3 bg-red-500 rounded-full mx-1"></div>
-            <div className="h-3 w-3 bg-yellow-500 rounded-full mx-1"></div>
-            <div className="h-3 w-3 bg-green-500 rounded-full mx-1"></div>
-          </div>
-          <div className="bg-gray-900 h-10 w-auto rounded-b-xl shadow-lg relative">
-          <pre className="text-gray-100 text-sm" style={{ fontFamily: "Menlo, monospace", position: "relative", top: "50%", transform: "translateY(-50%)", left: "10px"}}>npm install flex-cache</pre>
+        <div className="p-1 bg-slate-500/[.12] rounded-xl shadow-md mb-4 mr-80">
+          <div className="bg-gray-900 h-10 w-auto rounded-lg shadow-lg relative">
+            <pre className="text-gray-100 text-sm" style={{
+              fontFamily: "Menlo, monospace",
+              position: "relative",
+              top: "50%",
+              transform: "translateY(-50%)",
+              left: "10px"
+            }}>
+              npm init -y
+            </pre>
           </div>
         </div>
-        <p className="font-bold tracking-tight">This will download and install the "flex-cache" library and add it as a dependency in your project.</p>
+        <p className="tracking-tight">
+          This will create a basic package.json file for your project.
+        </p>
         <br />
-        <p className="font-bold tracking-tight">You are all set! Now you can import the library in any javascript file and use flex-cache.</p>
+        <p className="tracking-tight">
+          Continue by installing the "flex-cache" npm package using the following command:
+        </p>
+        <br />
+        <div className="p-1 bg-slate-500/[.12] rounded-xl shadow-md mb-4 mr-80">
+          <div className="bg-gray-900 h-10 w-auto rounded-lg shadow-lg relative">
+            <pre className="text-gray-100 text-sm" style={{
+              fontFamily: "Menlo, monospace",
+              position: "relative",
+              top: "50%",
+              transform: "translateY(-50%)",
+              left: "10px"
+            }}>
+              npm install flex-cache
+            </pre>
+          </div>
+        </div>
+        <p className="tracking-tight">This will download and install the "flex-cache" library and add it as a dependency in your project.</p>
+        <br />
+        <p className="tracking-tight">You are all set! Now you can import the library in any javascript file and use flex-cache.</p>
       </div>
 
-      <div
-        style={{ backgroundColor: "rgba(169, 169, 169, 0.12)" }}
-        className="p-2 rounded-xl shadow-md mb-4">
-        <div className="flex items-center justify-start bg-gray-700 p-2 rounded-t-xl">
+      <div className="p-2 bg-slate-500/[.12] rounded-xl shadow-md mb-4">
+        <div className="flex items-center justify-start bg-gray-700 p-1 rounded-t-lg">
           <div className="h-3 w-3 bg-red-500 rounded-full mx-1"></div>
           <div className="h-3 w-3 bg-yellow-500 rounded-full mx-1"></div>
           <div className="h-3 w-3 bg-green-500 rounded-full mx-1"></div>

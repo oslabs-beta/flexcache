@@ -6,6 +6,7 @@ import Features from '../components/Features';
 import MainButton from '../components/MainButton';
 import SecondaryButton from '../components/SecondaryButton';
 import Team from '../components/Team';
+import Copy from '../components/Copy';
 import Github from '../icons/github';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
 
@@ -62,17 +63,22 @@ export default function Hero() {
           Elevate your project with persistent caching and a fine-tuned Cache Invalidation Policy
         </p>
         {/* Action Buttons */}
-        <div className='mt-10 flex items-center justify-center gap-x-6'>
+        {/* <div className='mt-10 flex items-center justify-center gap-x-6'>
           <Link href={'/demo'}>
             <MainButton text='Try Demo' />
           </Link>
           <Link href={'https://github.com/oslabs-beta/supacache'}>
             <SecondaryButton icon={<Github />} text='GitHub' />
           </Link>
+        </div> */}
+
+        {/* Click to Copy */}
+        <div className='my-10 flex flex-col items-center justify-center'>
+          <Copy />
         </div>
       </div>
-      {/* Features Section */}
       <Features />
+      {/* Features Section */}
       <p className="mt-2 text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl ml-32">Get Started</p>
       {/* Get Started/ Terminal */}
       <div ref={terminalRef}>

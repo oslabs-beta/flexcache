@@ -26,6 +26,7 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
+
   /* overflow: hidden; */
   /* inset: 0px;
   transform: scale(1); */
@@ -47,6 +48,7 @@ body,
 html {
   height: 100%;
   margin: 0;
+  /* background-attachment: fixed; */
 }
 
 /* Sticky footer grid */

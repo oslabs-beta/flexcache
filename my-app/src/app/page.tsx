@@ -1,13 +1,18 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Terminal from '../components/Terminal_Component';
+
+// components
+import Terminal from '../components/Terminal';
 import Features from '../components/Features';
 import MainButton from '../components/MainButton';
 import SecondaryButton from '../components/SecondaryButton';
+import Github from '../icons/github';
 import Team from '../components/Team';
 import Copy from '../components/Copy';
-import Github from '../icons/github';
+import GetStarted from '../components/GetStarted';
+
+// icons
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
 
 
@@ -41,10 +46,10 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className='mt-10 px-6 py-54 sm:px-6 sm:py-10 lg:px-8'>
+    <div className='mt-10 px-6 py-45 sm:px-6 sm:py-10 lg:px-8'>
       <div className='mx-auto my-20 5 max-w-5xl text-center sm:my-20'>
         {/* ... Notification bubbles on top ... */}
-        <div className="mt-24 sm:mt-32 lg:mt-16">
+        <div className="mt-15 sm:mt-32 lg:mt-16">
           <div className="inline-flex space-x-6">
             <span className="rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-semibold leading-6 text-indigo-400 ring-1 ring-inset ring-indigo-500/20">
               Latest updates
@@ -77,15 +82,16 @@ export default function Hero() {
           <Copy />
         </div>
       </div>
-      <Features />
       {/* Features Section */}
+      <Features />
       <p className="mt-2 text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl ml-32">Get Started</p>
       {/* Get Started/ Terminal */}
-      <div ref={terminalRef}>
+      {/* <div ref={terminalRef}>
         {isTerminalVisible && <Terminal />}
-      </div>
+      </div> */}
       {/* Team Section */}
-      <Team />
+      {/* <GetStarted /> */}
+      {/* <Team /> */}
     </div>
   );
 }

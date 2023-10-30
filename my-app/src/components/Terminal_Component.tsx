@@ -1,66 +1,167 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export default function Terminal() {
-  const [output, setOutput] = useState("");
   const contentToPrint = [
-    'import { flexCache } from "flex-cache";',
-    '',
-    'const flexCache = new flexCache();',
-    '',
-    'flexCache.set( key, value, optional)',
-    ''
+    { text: '//import FlexCache from npm flex-cache', color: 'gray'},
+    { text: '\nimport', color: 'lightskyblue' },
+    { text: ' ', color: 'n/a' },
+    { text: '{', color: 'silver' },
+    { text: ' ', color: 'n/a' },
+    { text: 'FlexCache', color: 'sandybrown' },
+    { text: ' ', color: 'n/a' },
+    { text: '}', color: 'silver' },
+    { text: ' ', color: 'n/a' },
+    { text: 'from', color: 'lightskyblue' },
+    { text: ' ', color: 'n/a' },
+    { text: '"flex-cache"', color: 'palegreen' },
+    { text: ';', color: 'silver' },
+    { text: '\n\n//Initial FlexCache', color: 'gray' },
+    { text: '\nconst', color: 'sandybrown' },
+    { text: ' ', color: 'n/a' },
+    { text: 'flexCache', color: 'lightskyblue' },
+    { text: ' ', color: 'n/a' },
+    { text: '=', color: 'sandybrown' },
+    { text: ' ', color: 'n/a' },
+    { text: 'new', color: 'gold' },
+    { text: ' ', color: 'n/a' },
+    { text: 'flexCache', color: 'mediumpurple' },
+    { text: '(', color: 'silver' },
+    { text: ')', color: 'silver' },
+    { text: ';', color: 'silver' },
+    { text: '\n\n//Invoke the set method from FlexCache', color: 'gray' },
+    { text: '\nflexCache', color: 'mediumpurple' },
+    { text: '.', color: 'silver' },
+    { text: 'set', color: 'gold' },
+    { text: '(', color: 'silver' },
+    { text: 'key', color: 'turquoise' },
+    { text: ',', color: 'silver' },
+    { text: 'value', color: 'turquoise' },
+    { text: ',', color: 'silver' },
+    { text: 'optional', color: 'turquoise' },
+    { text: ')', color: 'silver' },
+    { text: ';', color: 'silver' },
+    { text: '\n\n//Invoke the get method from FlexCache', color: 'gray' },
+    { text: '\nflexCache', color: 'mediumpurple' },
+    { text: '.', color: 'silver' },
+    { text: 'get', color: 'gold' },
+    { text: '(', color: 'silver' },
+    { text: 'key', color: 'turquoise' },
+    { text: ')', color: 'silver' },
+    { text: ';', color: 'silver' },
+    { text: '\n\n//Invoke the delete method from FlexCache', color: 'gray' },
+    { text: '\nflexCache', color: 'mediumpurple' },
+    { text: '.', color: 'silver' },
+    { text: 'del', color: 'gold' },
+    { text: '(', color: 'silver' },
+    { text: 'key', color: 'turquoise' },
+    { text: ')', color: 'silver' },
+    { text: ';', color: 'silver' },
+    { text: '\n\n//Invoke the take method from FlexCache', color: 'gray' },
+    { text: '\nflexCache', color: 'mediumpurple' },
+    { text: '.', color: 'silver' },
+    { text: 'take', color: 'gold' },
+    { text: '(', color: 'silver' },
+    { text: 'key', color: 'turquoise' },
+    { text: ')', color: 'silver' },
+    { text: ';', color: 'silver' },
+    { text: '\n\n//Reset the time to live of a key with the ttl method', color: 'gray' },
+    { text: '\nflexCache', color: 'mediumpurple' },
+    { text: '.', color: 'silver' },
+    { text: 'ttl', color: 'gold' },
+    { text: '(', color: 'silver' },
+    { text: 'key', color: 'turquoise' },
+    { text: ')', color: 'silver' },
+    { text: ';', color: 'silver' },
+    { text: '\n\n//Read the time to live of a key with getTtl the method', color: 'gray' },
+    { text: '\nflexCache', color: 'mediumpurple' },
+    { text: '.', color: 'silver' },
+    { text: 'getTtl', color: 'gold' },
+    { text: '(', color: 'silver' },
+    { text: 'key', color: 'turquoise' },
+    { text: ')', color: 'silver' },
+    { text: ';', color: 'silver' },
+    { text: '\n\n//Read all cached key(s) with keys method', color: 'gray' },
+    { text: '\nflexCache', color: 'mediumpurple' },
+    { text: '.', color: 'silver' },
+    { text: 'keys', color: 'gold' },
+    { text: '(', color: 'silver' },
+    { text: 'key', color: 'turquoise' },
+    { text: ')', color: 'silver' },
+    { text: ';', color: 'silver' },
   ];
+
+  const [output, setOutput] = useState([]);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
+
+  const terminalRef = useRef(null);
 
   useEffect(() => {
     const printContent = () => {
       if (currentMessageIndex < contentToPrint.length) {
         const currentMessage = contentToPrint[currentMessageIndex];
+        const currentText = currentMessage.text;
 
-        if (currentCharacterIndex < currentMessage.length) {
-          setOutput((prevOutput) => prevOutput + currentMessage[currentCharacterIndex]);
+        if (currentCharacterIndex < currentText.length) {
+          setOutput((prevOutput: any) => [...prevOutput, { text: currentText[currentCharacterIndex], color: currentMessage.color }])
+          
           setCurrentCharacterIndex(currentCharacterIndex + 1);
         } else {
-          // Add a line break and move to the next message
-          setOutput((prevOutput) => prevOutput + "\n");
           setCurrentCharacterIndex(0);
           setCurrentMessageIndex(currentMessageIndex + 1);
         }
       }
     };
 
-    // Set the interval to print letter by letter
-    const interval = setInterval(printContent, 40); // Adjust the delay as needed
+    const interval = setInterval(printContent, 25);
 
-    // Clear the interval after all messages are printed
     if (currentMessageIndex >= contentToPrint.length) {
       clearInterval(interval);
     }
 
     return () => clearInterval(interval);
   }, [currentMessageIndex, currentCharacterIndex]);
-
   return (
-    <div className="lg:grid grid-cols-2 gap-x-10 items-center container max-w-[85rem] mx-auto px-4 sm:px-8 pt-20 pb-28">
+    <div
+    ref={terminalRef}
+    className="lg:grid grid-cols-2 gap-x-10 items-center container mx-auto px-4 sm:px-8 pt-20 pb-28">
       <div>
-        <h1 className="font-bold text-white text-3xl mx-auto mt-6 leading-8'">Built For Developers</h1>
-        <br></br>
-        <span>An open source module flex-cache that allows NodeJS users to add a server side cache to their applications with support for multiple eviction policies (TTL, LRU) and data persistence across server restarts</span>
-        <br></br>
-        <br></br>
-        <span>Persistent</span>
-        <br></br>
-        <br></br>
-        <span>Configurable Eviction Policies</span>
-        <br></br>
-        <br></br>
-        <span>Fast</span>
-        <br></br>
-        <br></br>
-        <span>To get started, npm install flex-cache</span>
+        <p className="font-bold tracking-tight">If you don't have a Node.js project set up, you'll have to create a file and cd into that directory.</p>
+        <br />
+        <p className="font-bold tracking-tight">run the following command in your terminal:</p>
+        <br />
+        <div style={{ backgroundColor: "rgba(169, 169, 169, 0.12)" }} className="p-2 rounded-xl shadow-md mb-4 mr-80">
+          <div className="flex justify-start bg-gray-700 p-2 rounded-t-xl">
+            <div className="h-3 w-3 bg-red-500 rounded-full mx-1"></div>
+            <div className="h-3 w-3 bg-yellow-500 rounded-full mx-1"></div>
+            <div className="h-3 w-3 bg-green-500 rounded-full mx-1"></div>
+          </div>
+          <div className="bg-gray-900 h-10 w-auto rounded-b-xl shadow-lg relative">
+          <pre className="text-gray-100 text-sm" style={{ fontFamily: "Menlo, monospace", position: "relative", top: "50%", transform: "translateY(-50%)", left: "10px"}}>npm init -y</pre>
+          </div>
+        </div>
+        <p className="font-bold tracking-tight">This will create a basic package.json file for your project.</p>
+        <br />
+        <p className="font-bold tracking-tight">Continue by installing the "flex-cache" npm package using the following command:</p>
+        <br />
+        <div style={{ backgroundColor: "rgba(169, 169, 169, 0.12)" }} className="p-2 rounded-xl shadow-md mb-4 mr-80">
+          <div className="flex justify-start bg-gray-700 p-2 rounded-t-xl">
+            <div className="h-3 w-3 bg-red-500 rounded-full mx-1"></div>
+            <div className="h-3 w-3 bg-yellow-500 rounded-full mx-1"></div>
+            <div className="h-3 w-3 bg-green-500 rounded-full mx-1"></div>
+          </div>
+          <div className="bg-gray-900 h-10 w-auto rounded-b-xl shadow-lg relative">
+          <pre className="text-gray-100 text-sm" style={{ fontFamily: "Menlo, monospace", position: "relative", top: "50%", transform: "translateY(-50%)", left: "10px"}}>npm install flex-cache</pre>
+          </div>
+        </div>
+        <p className="font-bold tracking-tight">This will download and install the "flex-cache" library and add it as a dependency in your project.</p>
+        <br />
+        <p className="font-bold tracking-tight">You are all set! Now you can import the library in any javascript file and use flex-cache.</p>
       </div>
-      <div style={{ backgroundColor: "rgba(169, 169, 169, 0.12)" }} className="p-2 rounded-xl shadow-md mb-4">
+
+      <div
+        style={{ backgroundColor: "rgba(169, 169, 169, 0.12)" }}
+        className="p-2 rounded-xl shadow-md mb-4">
         <div className="flex items-center justify-start bg-gray-700 p-2 rounded-t-xl">
           <div className="h-3 w-3 bg-red-500 rounded-full mx-1"></div>
           <div className="h-3 w-3 bg-yellow-500 rounded-full mx-1"></div>
@@ -68,7 +169,11 @@ export default function Terminal() {
         </div>
         <div className="bg-gray-900 p-6 h-96 overflow-scroll rounded-b-xl shadow-lg relative">
           <pre className="text-gray-100 text-sm" style={{ fontFamily: "Menlo, monospace" }}>
-            {output}
+            {output.map((item: any, index: number) => (
+              <span key={index} style={{ color: item.color }}>
+                {item.text}
+              </span>
+            ))}
           </pre>
         </div>
       </div>

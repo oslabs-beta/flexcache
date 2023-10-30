@@ -19,7 +19,7 @@ export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <header className='shadow-md sticky h-25 border-b border-b-slate-500 bg-white/10 backdrop-blur'
+        <header className='shadow-md fixed top-0 w-full h-25 border-b border-b-slate-500 bg-white/10 backdrop-blur'
             style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, .3)' }} >
             <nav
                 className='mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8'

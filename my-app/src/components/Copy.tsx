@@ -3,8 +3,6 @@ import React from "react";
 
 import SecondaryButtonRightIcon from "./SecondaryButtonRightIcon";
 import { Square2StackIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
-// import { ClipboardDocumentIcon, ClipboardDocumentCheckIcon, ChatBubbleBottomCenterIcon } from "@heroicons/react/20/solid";
-
 
 export default function Copy() {
 

@@ -86,12 +86,12 @@ export default function Hero() {
       <Features />
       <p className="mt-2 text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl ml-32">Get Started</p>
       {/* Get Started/ Terminal */}
-      {/* <div ref={terminalRef}>
+      <div ref={terminalRef}>
         {isTerminalVisible && <Terminal />}
-      </div> */}
+      </div>
       {/* Team Section */}
       {/* <GetStarted /> */}
-      {/* <Team /> */}
+      <Team />
     </div>
   );
 }

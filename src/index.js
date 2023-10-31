@@ -148,35 +148,6 @@
 			return ret
 		}
 
-		// for testing - delete later
-		
-		async testPromiseGet (){
-
-			let dataStore;
-
-			// console.log('at top of testpromiseget, this.data is', this.data)
-
-			(async() => {
-
-				await new Promise ((resolve, reject) => {
-					this.data
-						.then (result => {
-							this.data = result
-							resolve()
-						})
-						.catch (err => {console.log('error')})
-				})
-				.catch(err => {
-					console.log('error')
-				})
-
-			})();
-
-			dataStore = this.data
-
-			return dataStore
-
-		}
 
 		/**
 		 * set - cache a key and change the stats. Takes either a key, value, and optional ttl, or an array of objects with key, value, and ttl properties for each input

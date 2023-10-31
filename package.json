@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^7.6.3"
+    "diff": "^5.1.0",
+    "mongoose": "^7.6.3",
+    "myers-diff": "^2.1.0"
   }
 }

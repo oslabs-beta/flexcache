@@ -1,9 +1,11 @@
+import mongoose from 'mongoose';
+
 (function () {
 
 	const eventEmitter = require('events').EventEmitter
 
 	const fs = require('fs')
-	const mongoose = require('mongoose');
+	//const mongoose = require('mongoose');
 
 	module.exports = class Supacache extends eventEmitter {
 		constructor(options = {}) {
@@ -61,6 +63,7 @@
 			if (this.options.persistCache) {
 
 				//const mongoose = require('mongoose')
+				//import mongoose from 'mongoose'
 				const MONGO_URI = this.options.URIKey
 				mongoose.connect(MONGO_URI, {
 					useNewUrlParser: true,

@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from "react";
 import React from "react";
 
@@ -6,10 +8,11 @@ import { Square2StackIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 // import { ClipboardDocumentIcon, ClipboardDocumentCheckIcon, ChatBubbleBottomCenterIcon } from "@heroicons/react/20/solid";
 
 
-export default function Copy() {
+export default function Copy({ textToCopy, bgColor, brColor }) {
 
-    const [copied, setCopiedStatus] = useState<boolean>(false);
-    const textToCopy = 'npm install flex-cache';
+    const [copied, setCopiedStatus] = useState(false);
+    // const textToCopy = 'npm install flex-cache';
+    // const textToCopy = textToCopy;
 
 
     const handleClick = async () => {
@@ -31,16 +34,20 @@ export default function Copy() {
     };
 
     return (
-        <div onClick={handleClick}>
+        <div onClick={handleClick} onTouchEnd={handleClick}>
             {copied ?
                 <SecondaryButtonRightIcon
                     icon={<CheckCircleIcon className="h-t w-5 mx-3" />}
                     text={textToCopy}
+                    bgColor={bgColor}
+                    brColor={brColor}
                 />
                 :
                 <SecondaryButtonRightIcon
                     icon={<Square2StackIcon className="h-t w-5 mx-3" />}
                     text={textToCopy}
+                    bgColor={bgColor}
+                    brColor={brColor}
                 />
             }
         </div>

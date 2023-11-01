@@ -57,22 +57,22 @@
 
 			// intitialize Mongo connection if persistance option selected
 
-			// if (this.options.persistCache) {
+			if (this.options.persistCache) {
 
-			// 	const mongoose = require('mongoose')
-			// 	const MONGO_URI = this.options.URIKey
-			// 	mongoose.connect(MONGO_URI, {
-			// 		useNewUrlParser: true,
-			// 		useUnifiedTopology: true,
-			// 		dbName: 'cache_snapshots'
-			// 	})
-			// 		.catch(err => console.log('Error connecting to database.', err));
+				const mongoose = require('mongoose')
+				const MONGO_URI = this.options.URIKey
+				mongoose.connect(MONGO_URI, {
+					useNewUrlParser: true,
+					useUnifiedTopology: true,
+					dbName: 'cache_snapshots'
+				})
+					.catch(err => console.log('Error connecting to database.', err));
 
-			// 	const Schema = mongoose.Schema
-			// 	const snapshotSchema = new Schema({ Snapshot: Object })
-			// 	const Snapshot = mongoose.model('snapshot', snapshotSchema)
-			// 	this.#snapshotModel = Snapshot
-			// }
+				const Schema = mongoose.Schema
+				const snapshotSchema = new Schema({ Snapshot: Object })
+				const Snapshot = mongoose.model('snapshot', snapshotSchema)
+				this.#snapshotModel = Snapshot
+			}
 
 			// data and metadata containers
 

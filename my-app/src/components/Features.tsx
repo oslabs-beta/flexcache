@@ -40,8 +40,7 @@ export default function Features() {
                 <div className="md:col-span-3 md:py-20 flex flex-col items-center justify-center py-40 h-60 space-y-5 border rounded-lg bg-blue-900/[.08]
             shadow-[0_10px_70px_rgba(56,_61,_197,_.2),inset_0px_-8px_40px_rgba(53,_63,_166,_.3)] hover:shadow-[0_10px_70px_rgba(96,_165,_250,_.15)] 
             border-white/[.25] hover:border-blue-400/[.7] 
-            z-2"
-                >
+            z-2">
                     <p className=' text-indigo-400'>
                         Cache Faster
                     </p>

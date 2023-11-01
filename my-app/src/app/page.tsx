@@ -78,10 +78,15 @@ export default function Hero() {
 
           {/* Click to Copy */}
           <div className='my-10 flex flex-col items-center justify-center'>
-            <Copy
+            {/* <Copy
               textToCopy={'npm install flex-cache'}
               bgColor={'rgba(46, 81, 43, 0.47)'}
-              brColor={'rgba(59, 255, 43, 0.66)'} />
+              brColor={'rgba(59, 255, 43, 0.66)'} /> */}
+            <Copy
+              textToCopy={'npm install flex-cache'}
+              bgColor={'rgba(55, 55, 55, 0.47)'}
+              brColor={'rgba(85, 85, 85, 0.66)'}
+            />
           </div>
         </div>
         {/* Action Buttons */}

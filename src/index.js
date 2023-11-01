@@ -1,4 +1,5 @@
-//import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
+import connect from "../my-app/src/lib/mongodb";
 
 (function () {
 
@@ -62,15 +63,16 @@
 
 			if (this.options.persistCache) {
 
-				const mongoose = require('mongoose')
+				//const mongoose = require('mongoose')
 				//import mongoose from 'mongoose'
-				const MONGO_URI = this.options.URIKey
-				mongoose.connect(MONGO_URI, {
-					useNewUrlParser: true,
-					useUnifiedTopology: true,
-					dbName: 'cache_snapshots'
-				})
-					.catch(err => console.log('Error connecting to database.', err));
+				//const MONGO_URI = this.options.URIKey
+				const mongoose = connect();
+				// mongoose.connect(MONGO_URI, {
+				// 	useNewUrlParser: true,
+				// 	useUnifiedTopology: true,
+				// 	dbName: 'cache_snapshots'
+				// })
+				// 	.catch(err => console.log('Error connecting to database.', err));
 
 				const Schema = mongoose.Schema
 				const snapshotSchema = new Schema({ Snapshot: Object })

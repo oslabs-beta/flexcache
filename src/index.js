@@ -1,5 +1,3 @@
-import mongoose from 'mongoose';
-
 (function () {
 
 	const eventEmitter = require('events').EventEmitter

@@ -105,12 +105,12 @@ export default function Hero() {
 
       {/* <p className="flex justify-center items-center text-3x text-slate-200 sm:text-4xl">Get Started</p> */}
       {/* Get Started/ Terminal */}
-      {/* <div ref={terminalRef}>
-        {isTerminalVisible && <Terminal />}
-      </div> */}
+      <div ref={terminalRef}>
+        {isTerminalVisible && <GetStarted />}
+      </div>
 
       {/* Get Started Section */}
-      <GetStarted />
+      {/* <GetStarted /> */}
 
       {/* Team Section */}
       <Team />

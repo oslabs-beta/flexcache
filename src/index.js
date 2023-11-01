@@ -2,6 +2,8 @@
 
 	const eventEmitter = require('events').EventEmitter
 
+	const fs = require('fs')
+
 	module.exports = class Supacache extends eventEmitter {
 		constructor (options = {}) {
 			super()
@@ -13,11 +15,14 @@
 				checkPeriod: 0,
 				deleteOnExpire: true,
 				maxKeys: Infinity,
+				persistCache: false,
+				persistPeriod: 5,
+				URIKey: ''
 			}
 
 			// overwrite default options with user inputs
-			const {forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys, evictionPolicy} = options
-			const writableProps = {forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys}
+			const {forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys, persistCache, persistPeriod, URIKey, evictionPolicy} = options
+			const writableProps = {forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys, persistCache, persistPeriod, URIKey}
 			for (const key in writableProps) {
 				if (writableProps[key]) {
 					if (typeof writableProps[key] !== typeof this.options[key]){
@@ -50,9 +55,28 @@
 				})
 			}
 
+			// intitialize Mongo connection if persistance option selected
+
+			if (this.options.persistCache){
+
+				const mongoose = require('mongoose')
+				const MONGO_URI = this.options.URIKey
+				mongoose.connect(MONGO_URI, {
+					useNewUrlParser: true,
+					useUnifiedTopology: true,
+					dbName: 'cache_snapshots'
+				})
+					.catch(err => console.log('Error connecting to database.', err));
+
+				const Schema = mongoose.Schema
+				const snapshotSchema = new Schema ({Snapshot: Object})
+				const Snapshot = mongoose.model('snapshot', snapshotSchema)
+				this.#snapshotModel = Snapshot
+			}	
+
 			// data and metadata containers
 
-			this.data= {}
+			this.data = {};
 
 			this.stats = {
 				hits: 0,
@@ -78,8 +102,8 @@
 			this.close = this.close.bind(this)
 
 			//start checking period
-
 			this.#checkData()
+
 
 			return
 		}
@@ -98,6 +122,7 @@
 		get(key) {
 
 			this.#boundMethodCheck(this, Supacache)
+			
 
 			// If keys is an array, call and return mget
 			if (Array.isArray(key)) {
@@ -122,6 +147,7 @@
 			  }
 			return ret
 		}
+
 
 		/**
 		 * set - cache a key and change the stats. Takes either a key, value, and optional ttl, or an array of objects with key, value, and ttl properties for each input
@@ -185,8 +211,12 @@
 			this.stats.keys++;
 			}
 			this.emit("set", keyORKeyValueSet, value);
+			
+			
 			// return true
 			return true;
+
+			
 		}
 
 		/**
@@ -379,7 +409,7 @@
 			};
 			// reset check period
 			this.#killCheckPeriod();
-			this.#checkData(true);
+			this.#checkData();
 			this.emit("flush");
 		}
 
@@ -413,7 +443,7 @@
 		}
 
 		/**
-		 * Helper Functions Methods
+		 * Helper Function Methods
 		 */
 
 
@@ -425,7 +455,6 @@
 
 		#mget (keys) {
 
-			this.#boundMethodCheck(this, Supacache)
 
 			if (!Array.isArray(keys)) {
 				let err = this.#error("EKEYSTYPE")
@@ -458,7 +487,6 @@
 
 		#mset (keyValuePairs) {
 
-			this.#boundMethodCheck(this, Supacache)
 
 			// check if cache full
 
@@ -509,8 +537,6 @@
 		 */
 		#wrap (value, ttl) {
 
-			this.#boundMethodCheck(this, Supacache);
-
 			let now;
 
 			if (this.options.evictionPolicy === 'ttl') {
@@ -539,8 +565,6 @@
 
 				return lru_obj;
 			}
-
-
 		}
 
 		/**
@@ -551,7 +575,6 @@
 
 		#unwrap (cacheEntry) {
 
-			this.#boundMethodCheck(this, Supacache);
 			return cacheEntry.value;
 		}
 
@@ -562,7 +585,6 @@
 
 		#getValLength (value) {
 
-			this.#boundMethodCheck(this, Supacache);
 
 			if (typeof value === 'string') return value.length;
 
@@ -601,7 +623,6 @@
 
 		#getKeyLength (key) {
 
-			this.#boundMethodCheck(this, Supacache);
 			return key.toString().length;
 
 		}
@@ -612,7 +633,6 @@
 		 */
 		#error (type, data) {
 
-			this.#boundMethodCheck(this, Supacache);
 
 			//commenting out this line for debugging purposes - think data param and associated logic can be deleted
 			// let data = this._error.data ? this._error.data : {};
@@ -635,7 +655,6 @@
 		 */
 		#check (key, data) {
 
-			this.#boundMethodCheck(this, Supacache);
 
 			const now = Date.now();
 			let result = true;
@@ -673,7 +692,6 @@
 		 */
 		#checkIfLRUFull () {
 
-			this.#boundMethodCheck(this, Supacache);
 
 			if (this.stats.keys >= this.maxKeys) { //indicates that the LRU cache is full
 
@@ -690,11 +708,10 @@
 
 		/**
 		 *
-		 * @param {Boolean} startPeriod, defaulted to true
 		 * @returns {void} applies setTimeout once called
 		 */
 
-		#checkData (startPeriod = true) {
+		#checkData () {
 
 			this.#boundMethodCheck(this, Supacache);
 
@@ -704,15 +721,14 @@
 				this.#check(key, value);
 			}
 
-			if (startPeriod && this.options.checkPeriod > 0) {
-
-				this.checkTimeout = setTimeout(this._checkData, this.options.checkPeriod * 1000, startPeriod);
-
+			if (this.options.checkPeriod > 0) {
+				this.checkTimeout = setTimeout(this.#checkData, this.options.checkPeriod * 1000);
 			}
-
+			return
 		}
+
 		/**
-		 * For internal use only to kill check period and restart stats counter
+		 * kills check period and restart stats counter
 		 */
 		#killCheckPeriod () {
 
@@ -767,10 +783,62 @@
 
 			}
 		}
+	
+
+		/**
+		 * #retrieveCacheContents - retrieves snapshot of cache from external DB if option is selected
+		 * @returns {void}
+		 */
+
+	
+		async retrieveCacheContents () {
+
+			if (this.options.persistCache) {
+
+				let data = await this.#snapshotModel.find().exec()
+				if (data[0].Snapshot) {
+					this.data = data[0].Snapshot
+				}
+			}
+		}
+
+		/**
+		 * #persistCacheContents - stores snapshot of cache in external DB if option is selected
+		 * @returns {void} applies setTimeout once called
+		 */
+
+		
+		async persistCacheContents (){
+
+			if (this.options.persistCache){
+
+				try {
+					const response = await this.#snapshotModel.findOneAndUpdate({}, {'Snapshot': this.data}, {upsert: true})
+				} catch (err) {
+					console.log ('error writing cache snapshop to database:', err)
+				}
+
+				this.persistPeriodTimeout = setTimeout(() => this.persistCacheContents(), this.options.persistPeriod * 1000)
+			}
+		}
+
+		
+		/**
+		 * kills persist period
+		 */
+		#killPersistPeriod () {
+
+			if (this.persistPeriodTimeout) {
+				return clearTimeout(this.persistPeriodTimeout);
+			}
+		}
+
 
 		/**
 		 * Global Internal Fields
 		 */
+
+		#snapshotModel;
 
 		#memorySizeAssumptions = {
 			objectValueSize: 80,

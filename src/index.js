@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+//import mongoose from 'mongoose';
 
 (function () {
 
@@ -62,7 +62,7 @@ import mongoose from 'mongoose';
 
 			if (this.options.persistCache) {
 
-				//const mongoose = require('mongoose')
+				const mongoose = require('mongoose')
 				//import mongoose from 'mongoose'
 				const MONGO_URI = this.options.URIKey
 				mongoose.connect(MONGO_URI, {

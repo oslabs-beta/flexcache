@@ -4,7 +4,7 @@
 
 	const fs = require('fs')
 
-	module.exports = class Supacache extends eventEmitter {
+	module.exports = class FlexCache extends eventEmitter {
 		constructor (options = {}) {
 			super()
 

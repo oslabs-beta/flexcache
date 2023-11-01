@@ -93,7 +93,6 @@ export default function Terminal() {
   const [output, setOutput] = useState([]);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
-  const [copied, setCopiedStatus] = useState<boolean>(false);
 
 
   const terminalRef = useRef(null);

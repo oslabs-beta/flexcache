@@ -19,7 +19,7 @@ export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <header className='shadow-md sticky top-0 z-50 h-20 border-b border-b-slate-500 bg-white/10 backdrop-blur'
+        <header className='shadow-md sticky top-0 z-10 h-20 border-b border-b-slate-500 bg-white/10 backdrop-blur'
             style={{ boxShadow: '0 4px 4px rgba(0, 0, 0, .3)' }} >
             <nav
                 className='mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8'
@@ -78,8 +78,8 @@ export default function Header() {
                 className='lg:hidden'
                 open={mobileMenuOpen}
                 onClose={setMobileMenuOpen}>
-                <div className='fixed inset-0 z-10' />
-                <Dialog.Panel className='fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-slate-800 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
+                <div className='fixed inset-0 z-20' />
+                <Dialog.Panel className='fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-slate-800 px-6 py-10 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
                     <div className='flex flex-row items-center justify-between'>
                         <Link href={'#'} className='-m-1.5 p-1.5'>
                             <span className='sr-only'>flexcache</span>
@@ -97,7 +97,7 @@ export default function Header() {
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             <span className='sr-only'>Close menu</span>
-                            <XMarkIcon className='h-6 w-6' aria-hidden='true' />
+                            <XMarkIcon className='h-6 w-6' />
                         </button>
                     </div>
                     <div className='mt-6 flow-root'>
@@ -108,7 +108,7 @@ export default function Header() {
                                         key={item.name}
                                         href={item.href}
                                         onClick={() => { setMobileMenuOpen(false); }}
-                                        className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
+                                        className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-200 hover:bg-gray-50'
                                     >
                                         {item.name}
                                     </Link>

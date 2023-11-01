@@ -16,6 +16,20 @@
   }
 }
 
+/* GlobalStyles.css */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  /* This can be whatever maximum width you desire */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  /* Optional: for some internal spacing */
+  padding-right: 15px;
+  /* Optional: for some internal spacing */
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   /* background: radial-gradient(ellipse at center,
@@ -43,6 +57,8 @@ html {
   background: radial-gradient(ellipse at center,
       rgba(52, 60, 131, 1) 0%,
       rgba(0, 0, 0, 1) 100%);
+  min-height: 100vh;
+  margin: 0;
 }
 
 /* body, */

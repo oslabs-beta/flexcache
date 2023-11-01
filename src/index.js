@@ -59,7 +59,7 @@
 
 			if (this.options.persistCache) {
 
-				// const mongoose = require('mongoose')
+				const mongoose = require('mongoose')
 				const MONGO_URI = this.options.URIKey
 				mongoose.connect(MONGO_URI, {
 					useNewUrlParser: true,

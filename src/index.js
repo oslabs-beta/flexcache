@@ -1,5 +1,5 @@
 // import mongoose from 'mongoose';
-import connect from "../my-app/src/lib/mongodb";
+import connect from "../my-app/src/app/(lib)/mongodb.ts";
 
 (function () {
 

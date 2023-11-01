@@ -11,7 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "diff": "^5.1.0",
+    "framer-motion": "^10.16.4",
     "mongoose": "^7.6.3",
-    "myers-diff": "^2.1.0"
+    "myers-diff": "^2.1.0",
+    "react-intersection-observer": "^9.5.2"
   }
 }

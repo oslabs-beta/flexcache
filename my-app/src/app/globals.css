@@ -65,7 +65,7 @@ html {
 html {
   height: 100%;
   margin: 0;
-  /* background-attachment: fixed; */
+  background-attachment: fixed;
 }
 
 /* Sticky footer grid */

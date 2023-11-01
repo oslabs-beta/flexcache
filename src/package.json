@@ -1,0 +1,22 @@
+{
+  "name": "@flexcache/flex-cache",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/flexcache.git"
+  },
+  "keywords": [
+    "FlexCache"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/flexcache/issues"
+  },
+  "homepage": "https://github.com/oslabs-beta/flexcache#readme",
+  "description": ""
+}

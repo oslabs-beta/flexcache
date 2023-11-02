@@ -12,11 +12,11 @@
   "keywords": [
     "FlexCache"
   ],
-  "author": "",
+  "author": "Brian Yang, Jake Bayar, Pravek Karwe, Charlie Woodlief",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/oslabs-beta/flexcache/issues"
   },
   "homepage": "https://github.com/oslabs-beta/flexcache#readme",
-  "description": ""
+  "description": "Open source NPM module that allows developers to add server side caching to their applications with persisting data to their SQL database."
 }

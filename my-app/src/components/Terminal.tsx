@@ -96,7 +96,6 @@ export default function Terminal() {
   const [output, setOutput] = useState<outputMessage[]>([]);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
-  const [copied, setCopiedStatus] = useState<boolean>(false);
 
 
   const terminalRef = useRef(null);
@@ -134,17 +133,12 @@ export default function Terminal() {
   return (
     <div ref={terminalRef} className="">
       <div className="flex flex-col lg:gap-10 max-w-2xl mx-auto">
-        {/* Terminal Window */}
         <div className="flex flex-col p-1 bg-slate-500/[.12] rounded-xl shadow-md">
           <div className="flex items-center justify-start bg-gray-700 p-2 rounded-t-lg">
-            {/* Window controls (red, yellow, green dots) */}
             <div className="h-3 w-3 bg-red-500 rounded-full mx-1"></div>
             <div className="h-3 w-3 bg-yellow-500 rounded-full mx-1"></div>
             <div className="h-3 w-3 bg-green-500 rounded-full mx-1"></div>
           </div>
-
-          {/* Terminal Text */}
-          {/* Here we set the maximum height and overflow properties */}
           <div className="flex flex-col bg-slate-900/[.7] p-5 rounded-b-lg shadow-md min-w-0 sm:w-full md:max-w-2xl lg:max-w-2xl xl:max-w-2xl h-96 overflow-y-auto">
             <pre className="text-xs sm:text-sm" style={{ fontFamily: "Menlo, monospace" }}>
               {output.map((item, index) => (

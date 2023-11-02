@@ -1,11 +1,7 @@
 'use client';
 import React from 'react'
-// import { ArrowPathIcon, CloudArrowUpIcon, LockClosedIcon } from '@heroicons/react/20/solid'
 
 import { CubeTransparentIcon, AdjustmentsHorizontalIcon, Square2StackIcon, CheckCircleIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
-
-// import Copy from "./Copy";
-// import Terminal from "./Terminal";
 
 const features = [
     {
@@ -53,7 +49,6 @@ export default function Features() {
                     </p>
                 </div>
 
-                {/* "https://manuarora.in/boxshadows" */}
                 {
                     features.map((feature) => (
                         <div

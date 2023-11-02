@@ -3,8 +3,6 @@ import React, {  useState, useEffect } from 'react';
 import { Combobox } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
-// import '../globals.css';
-
 type Player = {
     id: number;
     first_name: string;

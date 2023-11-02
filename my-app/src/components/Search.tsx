@@ -1,5 +1,5 @@
 
-import React, {  useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Combobox } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
@@ -100,10 +100,10 @@ const Search: React.FC = () => { // FC stands for Function Component
 
     return (
         // <section className='w-100 h-200 body lg:flex justify-center items-center flex-col gap-y-6'>
-        <div className='flex flex-col items-center justify-center px-6 py-54 sm:px-6 sm:py-32 lg:px-8'>
+        <div className='flex flex-col items-center justify-center mb-40 px-6 py-54 sm:px-6 sm:py-32 lg:px-8'>
 
 
-            <div className='mx-auto my-auto max-w-5xl text-center text-5xl sm:px-50'>
+            <div className='mx-auto  max-w-5xl text-center text-5xl sm:px-50'>
                 <h1>Discover your favorite Player</h1>
             </div>
             <div className='mt-10 flex flex-col items-center justify-center gap-x-6 relative'>

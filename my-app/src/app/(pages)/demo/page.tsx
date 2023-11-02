@@ -27,7 +27,6 @@ export default function Page() {
 
 
     return (
-
         <>
             {/* <button
         //                 type="button"
@@ -49,9 +48,6 @@ export default function Page() {
         //             </div> */}
 
             < Search />
-            <div className='flex items-center justify-center'>
-                <iframe src="https://snapshots.raintank.io/dashboard-solo/snapshot/tD4U1QvaHoDxdA845xHlOtHso2RvjKbO?orgId=2&from=1698861926219&to=1698862435340&panelId=1" width="450" height="400"></iframe>
-            </div >
         </>
     );
 }

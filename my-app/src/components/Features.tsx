@@ -1,7 +1,10 @@
 'use client';
 import React from 'react'
+import Link from 'next/link';
 
 import { CubeTransparentIcon, AdjustmentsHorizontalIcon, Square2StackIcon, CheckCircleIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
+
+import DemoButton from './MainButton';
 
 const features = [
     {
@@ -69,19 +72,35 @@ export default function Features() {
                     ))
                 }
                 <div
-                    className="md:col-span-3 md:p-10 py-5 flex flex-col items-center justify-center space-y-5 border rounded-lg bg-blue-900/[.08]
+                    className="md:col-span-3 md:p-10 py-5 flex flex-col items-center justify-center border rounded-lg bg-blue-900/[.08]
                     shadow-[0_10px_70px_rgba(56,_61,_197,_.2),inset_0px_-8px_40px_rgba(53,_63,_166,_.3)] hover:shadow-[0_10px_70px_rgba(96,_165,_250,_.15)] 
                     border-white/[.25] hover:border-blue-400/[.7] z-2"
                 >
-                    <div className=" justify-center items-center grid max-w-screen-xl grid-cols-1 md:grid-cols-2">
+                    <div className=" justify-center lg:space-x-10  items-center grid max-w-screen-xl grid-cols-1 md:grid-cols-2">
 
-                        <iframe className='rounded-lg bg-blue-900/[.08]
-                    shadow-[0_10px_70px_rgba(56,_61,_197,_.2)]' src="https://snapshots.raintank.io/dashboard-solo/snapshot/tD4U1QvaHoDxdA845xHlOtHso2RvjKbO?orgId=2&from=1698861926219&to=1698862435340&panelId=1" width="500" height="400"></iframe>
+                        <div className='h-80 p-2 lg:h-full'>
 
-                        <div className="flex justify-center items-center">
+                            <iframe className=' w-full h-full rounded-lg bg-blue-900/[.08]
+                    shadow-[0_10px_70px_rgba(56,_61,_197,_.2)]' src="https://snapshots.raintank.io/dashboard-solo/snapshot/tD4U1QvaHoDxdA845xHlOtHso2RvjKbO?orgId=2&from=1698861926219&to=1698862435340&panelId=1" ></iframe>
+
+                        </div>
+                        <div className="flex flex-col justify-center items-center p-3 lg:items-start">
                             <p>
-                                Hello Durr
+                                This graph was produced by running a simulation to demonstrate the performance of Flexcache.
                             </p>
+                            <br />
+                            <p>
+                                The red line shows the average response time when querying directly to MongoDB, without the use of Flexcache.
+                            </p>
+                            <br />
+                            <p>The green line shows the average response time for requests with flexcache implemented. As seen, flexcache causes performance to increase by 500x+ as the cache starts to fill.
+                            </p>
+                            <br />
+                            <p>Try for yourself by accessing our demo and see the difference in performance with and without Flexcache!  </p>
+                            <br />
+                            <Link href={'/demo'}>
+                                <DemoButton text='Try Demo' />
+                            </Link>
                         </div>
                     </div>
                 </div >

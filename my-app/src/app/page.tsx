@@ -89,7 +89,7 @@ export default function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", damping: 10, stiffness: 100 }}>
             <p className='mx-8 max-w-xl text-md leading-8 text-gray-300 sm:text-lr lr:text-2xl'>
-              Elevate your project with persistent caching and a fine-tuned Cache Invalidation Policy
+              Elevate your project with persistent caching and a fine-tuned cache invalidation policy
             </p>
           </motion.div>
           <div className='mt-10 flex flex-col items-center justify-center'>

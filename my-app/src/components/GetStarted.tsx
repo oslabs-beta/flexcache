@@ -21,7 +21,7 @@ export default function GetStarted() {
                                 brColor={'rgba(85, 85, 85, 0.66)'}
                             />
                         </div>
-                        <p>Now import into file, initialize, and start caching right away.</p>
+                        <p>Now import into your Node file, initialize, and start caching right away.</p>
                     </div>
                 </div>
                 <div className="px-3">

@@ -10,21 +10,21 @@ const features = [
     {
         name: 'Open Source',
         description:
-            'Built open source, Free for open source',
+            'Built for open source, by open source developers.',
         href: '#',
         icon: CubeTransparentIcon,
     },
     {
         name: 'Easy to Use',
         description:
-            'Integrating should be as adding few lines',
+            'Integrating should be as easy as adding a few lines.',
         href: '#',
         icon: CheckCircleIcon,
     },
     {
         name: 'Configurable',
         description:
-            'Built in templates but configure to your liking',
+            'Choose between eviction policies like TTL & LRU.',
         href: '#',
         icon: AdjustmentsHorizontalIcon,
     },

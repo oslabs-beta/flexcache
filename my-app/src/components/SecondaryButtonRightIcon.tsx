@@ -1,4 +1,3 @@
-import { Autour_One } from 'next/font/google'
 import React from 'react'
 
 export default function SecondaryButtonRightIcon(

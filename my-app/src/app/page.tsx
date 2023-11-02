@@ -4,11 +4,7 @@ import Link from 'next/link';
 import { motion, useScroll, useTransform } from "framer-motion";
 
 // components
-import Terminal from '../components/Terminal';
 import Features from '../components/Features';
-import MainButton from '../components/MainButton';
-import SecondaryButton from '../components/SecondaryButton';
-import Github from '../icons/github';
 import Team from '../components/Team';
 import Copy from '../components/Copy';
 import GetStarted from '../components/GetStarted';
@@ -24,7 +20,7 @@ export default function Hero() {
 
   const { scrollYProgress } = useScroll({
     target: scrollRef,
-    offset: ["0 1", "1.33 1"],
+    offset: ["0 1", "1.1 1"],
   });
 
   const scaleProgess = useTransform(scrollYProgress, [0, 1], [0.7, 1]);

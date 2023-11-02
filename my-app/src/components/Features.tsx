@@ -33,10 +33,11 @@ export default function Features() {
             <div
                 className="xl:mx-20 lg:mx-20 max-w-screen-xl lg:my-20 lg:p-4 md:grid-cols-3 md:mx-90 md:my-20 md:p-3 my-5 mx-3 gap-3 items-center justify-center grid grid-cols-1 p-2.5 rounded-xl border border-white/[.15] bg-neutral-800/15 backdrop-blur shadow-[0_4px_15px_rgba(56,_61,_100,_.1)]"
             >
-                <div className="md:col-span-3 md:py-20 flex flex-col items-center justify-center py-40 h-60 space-y-5 border rounded-lg bg-blue-900/[.08]
-            shadow-[0_10px_70px_rgba(56,_61,_197,_.2),inset_0px_-8px_40px_rgba(53,_63,_166,_.3)] hover:shadow-[0_10px_70px_rgba(96,_165,_250,_.15)] 
-            border-white/[.25] hover:border-blue-400/[.7] 
-            z-2">
+                <div
+                    className="md:col-span-3 md:py-20 flex flex-col items-center justify-center py-40 h-60 space-y-5 border rounded-lg bg-blue-900/[.08]
+                    shadow-[0_10px_70px_rgba(56,_61,_197,_.2),inset_0px_-8px_40px_rgba(53,_63,_166,_.3)] hover:shadow-[0_10px_70px_rgba(96,_165,_250,_.15)] 
+                    border-white/[.25] hover:border-blue-400/[.7] z-2"
+                >
                     <p className=' text-indigo-400'>
                         Cache Faster
                     </p>
@@ -67,7 +68,23 @@ export default function Features() {
                         </div>
                     ))
                 }
-            </div >
+                <div
+                    className="md:col-span-3 md:p-10 py-5 flex flex-col items-center justify-center space-y-5 border rounded-lg bg-blue-900/[.08]
+                    shadow-[0_10px_70px_rgba(56,_61,_197,_.2),inset_0px_-8px_40px_rgba(53,_63,_166,_.3)] hover:shadow-[0_10px_70px_rgba(96,_165,_250,_.15)] 
+                    border-white/[.25] hover:border-blue-400/[.7] z-2"
+                >
+                    <div className="flex justify-center items-center">
+                        <div className='xl:mx-20 lg:mx-20 grid max-w-screen-xl grid-cols-1 md:grid-cols-2 pb-20'>
+
+                            <iframe src="https://snapshots.raintank.io/dashboard-solo/snapshot/tD4U1QvaHoDxdA845xHlOtHso2RvjKbO?orgId=2&from=1698861926219&to=1698862435340&panelId=1" width="450" height="400"></iframe>
+
+                            <div className="flex justify-center items-center">
+                                <p>Hello Durr</p>
+                            </div>
+                        </div>
+                    </div>
+                </div >
+            </div>
         </div >
     )
 }

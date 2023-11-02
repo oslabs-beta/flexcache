@@ -10,9 +10,9 @@ import DemoButton from './MainButton';
 
 // Navigation object
 const navigation = [
-    // { name: 'Features', href: '/features' },
+    { name: 'Features', href: '/features' },
     { name: 'Docs', href: '/docs' },
-    // { name: 'About', href: '/about' },
+    { name: 'About', href: '/about' },
 ];
 
 export default function Header() {
@@ -25,7 +25,7 @@ export default function Header() {
                 className='mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8'
                 aria-label='Global'>
 
-                <div className='flex items-center gap-x-12'>
+                <div className='flex items-center gap-x-12 '>
                     <Link
                         href={'/'}
                         className='ml-4 p-1.5'>
@@ -52,15 +52,17 @@ export default function Header() {
                 <div className='flex lg:hidden'>
                     <button
                         type='button'
-                        className='-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700'
-                        onClick={() => setMobileMenuOpen(true)}
+                        className='-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200'
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     >
                         <span className='sr-only'>Open main menu</span>
-                        <Bars3Icon className='h-6 w-6' aria-hidden='true' />
+                        {mobileMenuOpen ?
+                            <XMarkIcon className='h-6 w-6' aria-hidden='true' />
+                            : <Bars3Icon className='h-6 w-6' aria-hidden='true' />}
+
                     </button>
                 </div>
                 <div className='hidden lg:flex'>
-
                     <Link
                         href={'https://github.com/oslabs-beta/supacache'}
                         className='inline-flex items-center w-40 mr-3 text-sm leading-6 text-slate-50 hover:text-green-400'>
@@ -78,18 +80,18 @@ export default function Header() {
                 className='lg:hidden'
                 open={mobileMenuOpen}
                 onClose={setMobileMenuOpen}>
-                <div className='fixed inset-0 z-20' />
-                <Dialog.Panel className='fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-slate-800 px-6 py-10 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
+                <div className='fixed inset-0' />
+                <Dialog.Panel className='fixed inset-y-0 right-0 w-full overflow-y-auto bg-slate-800 px-6 py-10 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
                     <div className='flex flex-row items-center justify-between'>
-                        <Link href={'#'} className='-m-1.5 p-1.5'>
-                            <span className='sr-only'>flexcache</span>
-                            <Image
-                                src='/flexcache.svg'
-                                alt='Logo'
-                                width={110}
-                                height={32}
-                            />
-                        </Link>
+                        <button onClick={() => setMobileMenuOpen(false)}
+                        >
+                            <Link
+                                href={'/'}
+                                className=' invisible ml-4 p-1.5'>
+                                width={100}
+                                height={20}
+                            </Link>
+                        </button>
 
                         <button
                             type='button'
@@ -100,7 +102,7 @@ export default function Header() {
                             <XMarkIcon className='h-6 w-6' />
                         </button>
                     </div>
-                    <div className='mt-6 flow-root'>
+                    <div className='mt-10 flow-root'>
                         <div className='-my-6 divide-y divide-gray-500/10'>
                             <div className='space-y-2 py-6'>
                                 {navigation.map((item) => (
@@ -115,7 +117,12 @@ export default function Header() {
                                 ))}
                             </div>
                             <div className='py-6'>
-                                <Link href={'/demo'}>
+                                <Link
+                                    href={'/demo'}
+                                    onClick={() => {
+                                        setMobileMenuOpen(false);
+                                    }}
+                                >
                                     <DemoButton text='Try Demo' />
                                 </Link>
                             </div>

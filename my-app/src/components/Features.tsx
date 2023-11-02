@@ -73,14 +73,15 @@ export default function Features() {
                     shadow-[0_10px_70px_rgba(56,_61,_197,_.2),inset_0px_-8px_40px_rgba(53,_63,_166,_.3)] hover:shadow-[0_10px_70px_rgba(96,_165,_250,_.15)] 
                     border-white/[.25] hover:border-blue-400/[.7] z-2"
                 >
-                    <div className="flex justify-center items-center">
-                        <div className='xl:mx-20 lg:mx-20 grid max-w-screen-xl grid-cols-1 md:grid-cols-2 pb-20'>
+                    <div className=" justify-center items-center grid max-w-screen-xl grid-cols-1 md:grid-cols-2">
 
-                            <iframe src="https://snapshots.raintank.io/dashboard-solo/snapshot/tD4U1QvaHoDxdA845xHlOtHso2RvjKbO?orgId=2&from=1698861926219&to=1698862435340&panelId=1" width="450" height="400"></iframe>
+                        <iframe className='rounded-lg bg-blue-900/[.08]
+                    shadow-[0_10px_70px_rgba(56,_61,_197,_.2)]' src="https://snapshots.raintank.io/dashboard-solo/snapshot/tD4U1QvaHoDxdA845xHlOtHso2RvjKbO?orgId=2&from=1698861926219&to=1698862435340&panelId=1" width="500" height="400"></iframe>
 
-                            <div className="flex justify-center items-center">
-                                <p>Hello Durr</p>
-                            </div>
+                        <div className="flex justify-center items-center">
+                            <p>
+                                Hello Durr
+                            </p>
                         </div>
                     </div>
                 </div >

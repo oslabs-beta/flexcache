@@ -20,15 +20,11 @@ export default function Hero() {
 
   const { scrollYProgress } = useScroll({
     target: scrollRef,
-    offset: ["0 1", "1.1 1"],
+    offset: ["-0.2 1", ".5 1"],
   });
 
-  const scaleProgess = useTransform(scrollYProgress, [0, 1], [0.7, 1]);
+  const scaleProgess = useTransform(scrollYProgress, [-1, 1], [0.6, 1]);
   const opacityProgess = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-
-
-
-
 
   useEffect(() => {
     const options = {
@@ -57,7 +53,7 @@ export default function Hero() {
 
   return (
     <div className='pt-5 sm:px-6 sm:py-10 lg:px-8 '>
-      <div className='mx-auto mt-5 mb-10 max-w-5xl text-center sm:my-20'>
+      <div className='mx-auto mt-5 md:my-5  max-w-5xl text-center'>
         {/* ... Notification bubbles on top ... */}
         <div className="mt-15 sm:mt-32 lg:mt-16 lg:mb-5">
           <div className="inline-flex space-x-1">
@@ -74,31 +70,33 @@ export default function Hero() {
         </div>
         {/* Hero Section */}
         <div className='flex flex-col items-center justify-center'>
-          <h2 className='my-8 mx-5 text-5xl font-bold text-white sm:text-8xl'>
+          <h2 className='my-8 mx-5 tracking-tight text-5xl font-bold text-white sm:text-8xl'>
             {["Configurable.", "Persistent.", "Fast."].map((word, index) => (
               <motion.span
                 key={index}
-                style={{ display: "inline-block" }}
+                style={{
+                  display: "inline-block",
+                }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * .60 }}>
+                transition={{ delay: index * .20 }}>
                 {word}&nbsp;
               </motion.span>
             ))}
           </h2>
           <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ type: "spring", damping: 10, stiffness: 100 }}>
-          <p className='mx-8 max-w-xl text-md leading-8 text-gray-300 sm:text-lr lr:text-2xl'>
-            Elevate your project with persistent caching and a fine-tuned Cache Invalidation Policy
-          </p>
-          </motion.div>
-          <div className='my-10 flex flex-col items-center justify-center'>
-            <motion.div
-            initial={{ opacity: 0, x: -20, y: 20 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", damping: 10, stiffness: 100 }}>
+            <p className='mx-8 max-w-xl text-md leading-8 text-gray-300 sm:text-lr lr:text-2xl'>
+              Elevate your project with persistent caching and a fine-tuned Cache Invalidation Policy
+            </p>
+          </motion.div>
+          <div className='mt-10 flex flex-col items-center justify-center'>
+            <motion.div
+              initial={{ opacity: 0, x: -20, y: 20 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ type: "spring", damping: 10, stiffness: 100 }}>
               <Copy
                 textToCopy={'npm install flex-cache'}
                 bgColor={'rgba(55, 55, 55, 0.47)'}
@@ -116,12 +114,12 @@ export default function Hero() {
           opacity: opacityProgess,
         }}>
         <Features />
-        </motion.div>
+      </motion.div>
       <div ref={terminalRef}>
         {isTerminalVisible && <GetStarted />}
       </div>
       {/* Team Section */}
-        <Team />
+      <Team />
     </div>
   );
 }

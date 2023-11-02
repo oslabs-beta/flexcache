@@ -1,4 +1,3 @@
-import { Autour_One } from 'next/font/google'
 import React from 'react'
 
 export default function SecondaryButtonRightIcon(
@@ -13,7 +12,7 @@ export default function SecondaryButtonRightIcon(
     return (
         <button
             type="button"
-            className="flex items-center justify-center w-50 py-2 text-sm font-regular text-white rounded-md shadow-2xl hover:bg-green-200  "
+            className="flex items-center justify-center w-50 py-2 text-sm font-regular text-white rounded-md shadow-2xl hover:bg-green-200"
             style={{
                 backgroundColor: bgColor,
                 borderColor: brColor,

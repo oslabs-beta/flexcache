@@ -10,9 +10,9 @@ import DemoButton from './MainButton';
 
 // Navigation object
 const navigation = [
-    // { name: 'Features', href: '/features' },
+    { name: 'Features', href: '/#features' },
     { name: 'Docs', href: '/docs' },
-    // { name: 'About', href: '/about' },
+    { name: 'Team', href: '/#team' },
 ];
 
 export default function Header() {

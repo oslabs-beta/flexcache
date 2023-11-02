@@ -108,6 +108,7 @@ export default function Hero() {
       </div>
       {/* Features Section */}
       <motion.div
+        id='features'
         ref={scrollRef}
         style={{
           scale: scaleProgess,

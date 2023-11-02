@@ -40,7 +40,7 @@ const team = [
 export default function Team() {
     return (
 
-        <div className='flex justify-center'>
+        <div id='team' className='flex justify-center'>
             <div
                 className="max-w-screen-xl lg:mx-20 lg:my-20 lg:p-4  md:mx-90 md:my-20 md:p-3 my-5 mx-3 gap-3 items-center justify-center p-2.5 rounded-xl border border-white/[.15] bg-neutral-800/15 backdrop-blur shadow-[0_4px_15px_rgba(56,_61,_100,_.1)]"
             >

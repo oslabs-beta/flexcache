@@ -42,7 +42,7 @@ export default function Team() {
 
         <div className='flex justify-center'>
             <div
-                className="max-w-screen-xl lg:my-20 lg:p-4  md:mx-90 md:my-20 md:p-3 my-5 mx-3 gap-3 items-center justify-center p-2.5 rounded-xl border border-white/[.15] bg-neutral-800/15 backdrop-blur shadow-[0_4px_15px_rgba(56,_61,_100,_.1)]"
+                className="max-w-screen-xl lg:mx-20 lg:my-20 lg:p-4  md:mx-90 md:my-20 md:p-3 my-5 mx-3 gap-3 items-center justify-center p-2.5 rounded-xl border border-white/[.15] bg-neutral-800/15 backdrop-blur shadow-[0_4px_15px_rgba(56,_61,_100,_.1)]"
             >
                 <div className="
                 flex 
@@ -60,12 +60,12 @@ export default function Team() {
                 z-2
                 "
                 >
-                    <div className=' p-5 mt-5 lg:mx-20 lg:mt-10 max-w-7xl'>
+                    <div className=' p-5 mt-5 md:px-20 lg:mx-20 lg:mt-10 max-w-7xl'>
                         <div className='mx-auto max-w-2xl lg:mx-0'>
                             <h2 className='text-3xl font-bold tracking-tight text-slate-200 sm:text-4xl'>Meet the Team!</h2>
-                            <p className="mt-6 text-lg leading-8 text-gray-400">
+                            {/* <p className="mt-6 text-lg leading-8 text-gray-400">
                                 We’re a dynamic group of individuals who are passionate and dedicated to deliverying amazing software.
-                            </p>
+                            </p> */}
                         </div>
 
                         <ul

@@ -89,8 +89,11 @@ export default function Terminal() {
     { text: ')', color: 'silver' },
     { text: ';', color: 'silver' },
   ];
-
-  const [output, setOutput] = useState([]);
+  type outputMessage = {
+    text: string
+    color: string
+  }
+  const [output, setOutput] = useState<outputMessage[]>([]);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
 

@@ -6,7 +6,12 @@ import React from "react";
 import SecondaryButtonRightIcon from "./SecondaryButtonRightIcon";
 import { Square2StackIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 
-export default function Copy({ textToCopy, bgColor, brColor }) {
+export default function Copy({ textToCopy, bgColor, brColor }
+    : {
+        textToCopy: string,
+        bgColor: string,
+        brColor: string
+    }) {
 
     const [copied, setCopiedStatus] = useState(false);
     // const textToCopy = 'npm install flex-cache';

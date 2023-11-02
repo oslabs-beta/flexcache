@@ -1,11 +1,15 @@
-(function() {
+// import mongoose from 'mongoose';
+import connect from "../my-app/src/app/(lib)/mongodb.ts";
+
+(function () {
 
 	const eventEmitter = require('events').EventEmitter
 
 	const fs = require('fs')
+	//const mongoose = require('mongoose');
 
-	module.exports = class FlexCache extends eventEmitter {
-		constructor (options = {}) {
+	module.exports = class Supacache extends eventEmitter {
+		constructor(options = {}) {
 			super()
 
 			// default options
@@ -21,11 +25,11 @@
 			}
 
 			// overwrite default options with user inputs
-			const {forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys, persistCache, persistPeriod, URIKey, evictionPolicy} = options
-			const writableProps = {forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys, persistCache, persistPeriod, URIKey}
+			const { forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys, persistCache, persistPeriod, URIKey, evictionPolicy } = options
+			const writableProps = { forceString, stdTTL, checkPeriod, deleteOnExpire, maxKeys, persistCache, persistPeriod, URIKey }
 			for (const key in writableProps) {
 				if (writableProps[key]) {
-					if (typeof writableProps[key] !== typeof this.options[key]){
+					if (typeof writableProps[key] !== typeof this.options[key]) {
 						const _err = this.#error("EOPTIONINPUTS")
 						throw _err
 					}
@@ -57,22 +61,24 @@
 
 			// intitialize Mongo connection if persistance option selected
 
-			if (this.options.persistCache){
+			if (this.options.persistCache) {
 
-				const mongoose = require('mongoose')
-				const MONGO_URI = this.options.URIKey
-				mongoose.connect(MONGO_URI, {
-					useNewUrlParser: true,
-					useUnifiedTopology: true,
-					dbName: 'cache_snapshots'
-				})
-					.catch(err => console.log('Error connecting to database.', err));
+				//const mongoose = require('mongoose')
+				//import mongoose from 'mongoose'
+				//const MONGO_URI = this.options.URIKey
+				const mongoose = connect();
+				// mongoose.connect(MONGO_URI, {
+				// 	useNewUrlParser: true,
+				// 	useUnifiedTopology: true,
+				// 	dbName: 'cache_snapshots'
+				// })
+				// 	.catch(err => console.log('Error connecting to database.', err));
 
 				const Schema = mongoose.Schema
-				const snapshotSchema = new Schema ({Snapshot: Object})
+				const snapshotSchema = new Schema({ Snapshot: Object })
 				const Snapshot = mongoose.model('snapshot', snapshotSchema)
 				this.#snapshotModel = Snapshot
-			}	
+			}
 
 			// data and metadata containers
 
@@ -122,11 +128,11 @@
 		get(key) {
 
 			this.#boundMethodCheck(this, Supacache)
-			
+
 
 			// If keys is an array, call and return mget
 			if (Array.isArray(key)) {
-			  return this.#mget(key)
+				return this.#mget(key)
 			}
 
 			//Check if key is valid
@@ -134,17 +140,17 @@
 			if (err = this.#isInvalidKey(key)) {
 				throw err;
 			}
-			
+
 			let ret;
 			// Get data and modify stats
 			if (this.data[key] && this.#check(key, this.data[key])) {
 				this.stats.hits++;
 				ret = this.#unwrap(this.data[key]);
-			  } else {
+			} else {
 				// If not found, return undefined
 				this.stats.misses++;
 				ret = undefined;
-			  }
+			}
 			return ret
 		}
 
@@ -207,16 +213,16 @@
 
 			// only add the keys and key-size if the key is new
 			if (!existent) {
-			this.stats.ksize += this.#getKeyLength(keyORKeyValueSet);
-			this.stats.keys++;
+				this.stats.ksize += this.#getKeyLength(keyORKeyValueSet);
+				this.stats.keys++;
 			}
 			this.emit("set", keyORKeyValueSet, value);
-			
-			
+
+
 			// return true
 			return true;
 
-			
+
 		}
 
 		/**
@@ -248,23 +254,23 @@
 			// delete existant keys
 			let delCount = 0;
 
-			for (let i = 0; i < keys.length; i ++){
+			for (let i = 0; i < keys.length; i++) {
 				const key = keys[i];
 				if (this.data[key]) {
-				// adjust stats
+					// adjust stats
 					this.stats.vsize -= this.#getValLength(this.#unwrap(this.data[key]));
 					this.stats.ksize -= this.#getKeyLength(key);
 					this.stats.keys--;
 					delCount++;
-				// delete the value
+					// delete the value
 					const oldVal = this.data[key];
 					delete this.data[key];
-				// return true
+					// return true
 					this.emit("del", key, oldVal.value);
 				}
 
 			}
-		
+
 			return delCount;
 		}
 
@@ -306,17 +312,17 @@
 			}
 			// check whether data exists and update the ttl value
 			if (this.data[key] && this.#check(key, this.data[key])) {
-			// if ttl < 0 delete the key. otherwise reset the value
+				// if ttl < 0 delete the key. otherwise reset the value
 				if (ttl >= 0) {
 					this.data[key] = this.#wrap(this.data[key].v, ttl);
 				} else {
-				this.del(key);
+					this.del(key);
 				}
 				return true;
 			} else {
 
-			// return false if key not found
-			return false;
+				// return false if key not found
+				return false;
 			}
 		}
 
@@ -351,7 +357,7 @@
 			} else {
 				// return undefined if key has not been found
 				return undefined;
-				}
+			}
 		}
 
 		/**
@@ -453,7 +459,7 @@
 		 * @returns {object}: object with found key/value pairs. Keys not found have value of undefined
 		 */
 
-		#mget (keys) {
+		#mget(keys) {
 
 
 			if (!Array.isArray(keys)) {
@@ -463,16 +469,16 @@
 
 			let returnObj = {};
 
-			for (let i = 0; i < keys.length; i ++){
+			for (let i = 0; i < keys.length; i++) {
 				let key = keys[i]
 				let _err
-				if (_err = this.#isInvalidKey(key)){
+				if (_err = this.#isInvalidKey(key)) {
 					throw err
 				}
-				if (this.data[key] && this.#check(key, this.data[key])){
+				if (this.data[key] && this.#check(key, this.data[key])) {
 					this.stats.hits++
 					returnObj[key] = this.#unwrap(this.data[key])
-				} else{
+				} else {
 					this.stats.misses++
 				}
 			}
@@ -485,7 +491,7 @@
 		 * @returns {boolean}: boolean confirming keys have been successfully set
 		 */
 
-		#mset (keyValuePairs) {
+		#mset(keyValuePairs) {
 
 
 			// check if cache full
@@ -498,25 +504,25 @@
 			// validate all inputs before setting
 			for (let i = 0; i < keyValuePairs.length; i++) {
 				const keyValuePair = keyValuePairs[i]
-				const {key, ttl} = keyValuePair
+				const { key, ttl } = keyValuePair
 				// check if ttl is a number
 				if (ttl && typeof ttl !== "number") {
 					const err = this._error("ETTLTYPE");
 					throw err;
-				  }
+				}
 				let err;
-				if (err = this.#isInvalidKey(key)){
+				if (err = this.#isInvalidKey(key)) {
 					throw err
 				}
 			}
 
-			for (let j = 0; j < keyValuePairs.length; j++){
+			for (let j = 0; j < keyValuePairs.length; j++) {
 				const keyValuePair = keyValuePairs[i]
-				const {key, value, ttl} = keyValuePair
+				const { key, value, ttl } = keyValuePair
 				this.set(key, value, ttl)
 			}
 			return true
-			
+
 		}
 
 
@@ -524,7 +530,7 @@
 		 *
 		 * @param {item} item --> Input item to be deep cloned.
 		 */
-		#deepClone (itemToClone) {
+		#deepClone(itemToClone) {
 
 			return JSON.parse(JSON.stringify(itemToClone));
 
@@ -535,7 +541,7 @@
 		 * @param {String} value --> Value that we want to wrap into an object with livetime (ttl) or last_time_used (lru)
 		 * @param {String} ttl --> Time to live for ttl eviction method. Do not supply for the lru method, if supplied it will be ignored.
 		 */
-		#wrap (value, ttl) {
+		#wrap(value, ttl) {
 
 			let now;
 
@@ -573,7 +579,7 @@
 		 * @returns value from a specified cache entry
 		 */
 
-		#unwrap (cacheEntry) {
+		#unwrap(cacheEntry) {
 
 			return cacheEntry.value;
 		}
@@ -583,7 +589,7 @@
 		 * @param {String || Number || Boolean || Function | Object} value --> value within a cacheEntry that we want to calculate how much memory it will consume.
 		 */
 
-		#getValLength (value) {
+		#getValLength(value) {
 
 
 			if (typeof value === 'string') return value.length;
@@ -621,7 +627,7 @@
 		 * @param {String} key --> get length of a particular key of a cacheEntry
 		 */
 
-		#getKeyLength (key) {
+		#getKeyLength(key) {
 
 			return key.toString().length;
 
@@ -631,7 +637,7 @@
 		 *
 		 * @param {String} type --> refers to error type, such as ENOTFOUND
 		 */
-		#error (type, data) {
+		#error(type, data) {
 
 
 			//commenting out this line for debugging purposes - think data param and associated logic can be deleted
@@ -653,7 +659,7 @@
 		 * @param {Object} data
 		 * @returns true if no data needs to be evicted, false otherwise
 		 */
-		#check (key, data) {
+		#check(key, data) {
 
 
 			const now = Date.now();
@@ -690,7 +696,7 @@
 		/**
 		 * checks if LRU cache is full before we set a cache value
 		 */
-		#checkIfLRUFull () {
+		#checkIfLRUFull() {
 
 
 			if (this.stats.keys >= this.maxKeys) { //indicates that the LRU cache is full
@@ -711,7 +717,7 @@
 		 * @returns {void} applies setTimeout once called
 		 */
 
-		#checkData () {
+		#checkData() {
 
 			this.#boundMethodCheck(this, Supacache);
 
@@ -730,7 +736,7 @@
 		/**
 		 * kills check period and restart stats counter
 		 */
-		#killCheckPeriod () {
+		#killCheckPeriod() {
 
 			this.#boundMethodCheck(this, Supacache);
 
@@ -745,7 +751,7 @@
 		 * @param {Class Constructor} constructor
 		 * @returns throws error if conditional check fails
 		 */
-		#boundMethodCheck (instance, Constructor) {
+		#boundMethodCheck(instance, Constructor) {
 
 			if (!(instance instanceof Constructor)) {
 
@@ -757,7 +763,7 @@
 		/**
 		 * Helper function for kill check period
 		 */
-		#closed () {
+		#closed() {
 
 			this.#boundMethodCheck(this, Supacache)
 			this._killCheckPeriod();
@@ -770,7 +776,7 @@
 		 * @returns Error object containing the invalid key type that was passed in
 		 */
 
-		#isInvalidKey (key) {
+		#isInvalidKey(key) {
 
 			this.#boundMethodCheck(this, Supacache);
 
@@ -783,15 +789,15 @@
 
 			}
 		}
-	
+
 
 		/**
 		 * #retrieveCacheContents - retrieves snapshot of cache from external DB if option is selected
 		 * @returns {void}
 		 */
 
-	
-		async retrieveCacheContents () {
+
+		async retrieveCacheContents() {
 
 			if (this.options.persistCache) {
 
@@ -807,26 +813,26 @@
 		 * @returns {void} applies setTimeout once called
 		 */
 
-		
-		async persistCacheContents (){
 
-			if (this.options.persistCache){
+		async persistCacheContents() {
+
+			if (this.options.persistCache) {
 
 				try {
-					const response = await this.#snapshotModel.findOneAndUpdate({}, {'Snapshot': this.data}, {upsert: true})
+					const response = await this.#snapshotModel.findOneAndUpdate({}, { 'Snapshot': this.data }, { upsert: true })
 				} catch (err) {
-					console.log ('error writing cache snapshop to database:', err)
+					console.log('error writing cache snapshop to database:', err)
 				}
 
 				this.persistPeriodTimeout = setTimeout(() => this.persistCacheContents(), this.options.persistPeriod * 1000)
 			}
 		}
 
-		
+
 		/**
 		 * kills persist period
 		 */
-		#killPersistPeriod () {
+		#killPersistPeriod() {
 
 			if (this.persistPeriodTimeout) {
 				return clearTimeout(this.persistPeriodTimeout);

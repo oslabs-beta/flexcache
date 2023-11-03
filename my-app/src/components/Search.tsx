@@ -103,7 +103,7 @@ const Search: React.FC = () => { // FC stands for Function Component
         <div className='flex flex-col items-center justify-center mb-40 px-6 py-54 sm:px-6 sm:py-32 lg:px-8'>
 
 
-            <div className='mx-auto  max-w-5xl text-center text-5xl sm:px-50'>
+            <div className='mx-auto  max-w-5xl text-center text-5xl sm:px-20'>
                 <h1>Discover your favorite Player</h1>
             </div>
             <div className='mt-10 flex flex-col items-center justify-center gap-x-6 relative'>
@@ -141,8 +141,9 @@ const Search: React.FC = () => { // FC stands for Function Component
 
             <div>
                 {selectedPlayer && (
-                    <div className='flex flex-col items-center'>
-                        <strong>
+                    <div className='flex flex-col items-center justify-center'>
+
+                        <strong className='mt-20'>
                             {selectedPlayer.first_name} {selectedPlayer.last_name}
                         </strong>
                         <br />

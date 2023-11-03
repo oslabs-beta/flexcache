@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 
 export default function Terminal() {
+
+  //   const myCache = new Flexcache()
+  // myCache.retrieveCacheContents()
+  //    .then (() => {
+  //    myCache.persistCacheContents()
+
+  //    // your code goes here
+
+  //    )}
   const contentToPrint = [
     { text: '//import FlexCache from npm flex-cache', color: 'gray' },
     { text: '\nimport', color: 'lightskyblue' },
@@ -16,20 +25,20 @@ export default function Terminal() {
     { text: '"flex-cache"', color: 'palegreen' },
     { text: ';', color: 'silver' },
     { text: '\n\n//Initialize FlexCache', color: 'gray' },
-    { text: '\nconst', color: 'sandybrown' },
+    { text: '\n', color: 'sandybrown' },
     { text: ' ', color: 'n/a' },
-    { text: 'flexCache', color: 'lightskyblue' },
+    { text: 'myCache', color: 'lightskyblue' },
     { text: ' ', color: 'n/a' },
     { text: '=', color: 'sandybrown' },
     { text: ' ', color: 'n/a' },
     { text: 'new', color: 'gold' },
     { text: ' ', color: 'n/a' },
-    { text: 'flexCache', color: 'mediumpurple' },
+    { text: 'myCache', color: 'mediumpurple' },
     { text: '(', color: 'silver' },
     { text: ')', color: 'silver' },
     { text: ';', color: 'silver' },
     { text: '\n\n//Invoke the set method', color: 'gray' },
-    { text: '\nflexCache', color: 'mediumpurple' },
+    { text: '\nmyCache', color: 'mediumpurple' },
     { text: '.', color: 'silver' },
     { text: 'set', color: 'gold' },
     { text: '(', color: 'silver' },
@@ -37,11 +46,11 @@ export default function Terminal() {
     { text: ',', color: 'silver' },
     { text: 'value', color: 'turquoise' },
     { text: ',', color: 'silver' },
-    { text: 'optional', color: 'turquoise' },
+    { text: 'ttl', color: 'turquoise' },
     { text: ')', color: 'silver' },
     { text: ';', color: 'silver' },
     { text: '\n\n//Invoke the get method', color: 'gray' },
-    { text: '\nflexCache', color: 'mediumpurple' },
+    { text: '\nmyCache', color: 'mediumpurple' },
     { text: '.', color: 'silver' },
     { text: 'get', color: 'gold' },
     { text: '(', color: 'silver' },
@@ -49,7 +58,7 @@ export default function Terminal() {
     { text: ')', color: 'silver' },
     { text: ';', color: 'silver' },
     { text: '\n\n//Invoke the delete method', color: 'gray' },
-    { text: '\nflexCache', color: 'mediumpurple' },
+    { text: '\nmyCache', color: 'mediumpurple' },
     { text: '.', color: 'silver' },
     { text: 'del', color: 'gold' },
     { text: '(', color: 'silver' },
@@ -57,7 +66,7 @@ export default function Terminal() {
     { text: ')', color: 'silver' },
     { text: ';', color: 'silver' },
     { text: '\n\n//Invoke the take method', color: 'gray' },
-    { text: '\nflexCache', color: 'mediumpurple' },
+    { text: '\nmyCache', color: 'mediumpurple' },
     { text: '.', color: 'silver' },
     { text: 'take', color: 'gold' },
     { text: '(', color: 'silver' },

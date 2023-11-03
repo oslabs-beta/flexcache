@@ -791,7 +791,7 @@
 		 */
 
 	
-		async retrieveCacheContents () {
+		async retrieveCacheContents() {
 
 			if (this.options.persistCache) {
 
@@ -808,7 +808,7 @@
 		 */
 
 		
-		async persistCacheContents (){
+		async persistCacheContents() {
 
 			if (this.options.persistCache){
 

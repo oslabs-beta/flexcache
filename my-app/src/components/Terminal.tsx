@@ -29,8 +29,6 @@ export default function Terminal() {
     { text: ')', color: 'silver' },
     { text: ';', color: 'silver' },
 
-// // initialize persistance loop
-// myCache.persistCacheContents()
     { text: '\n\n// Retrieve persisted snapshot of cache', color: 'gray' },
     { text: '\nmyCache', color: 'mediumpurple' },
     { text: '.', color: 'silver' },
@@ -50,8 +48,8 @@ export default function Terminal() {
     { text: 'persistCacheContents', color: 'gold' },
     { text: '(', color: 'silver' },
     { text: ')', color: 'silver' },
-    { text: '\n  {*add code here*}', color: 'gray' },
-    { text: '\n }', color: 'silver' },
+    { text: '\n\n  {*add code here*}', color: 'gray' },
+    { text: '\n\n }', color: 'silver' },
     { text: '\n\n//Invoke the set method', color: 'gray' },
     { text: '\nmyCache', color: 'mediumpurple' },
     { text: '.', color: 'silver' },

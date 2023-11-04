@@ -28,7 +28,6 @@ export default function Terminal() {
     { text: '(', color: 'silver' },
     { text: ')', color: 'silver' },
     { text: ';', color: 'silver' },
-
     { text: '\n\n// Retrieve persisted snapshot of cache', color: 'gray' },
     { text: '\nmyCache', color: 'mediumpurple' },
     { text: '.', color: 'silver' },

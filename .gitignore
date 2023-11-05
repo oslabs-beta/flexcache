@@ -1,5 +1,3 @@
-# dependencies
 /node_modules
-
-# misc
+dist
 .DS_Store

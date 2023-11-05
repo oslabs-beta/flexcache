@@ -1,16 +1,16 @@
 {
-  "name": "@flexcache/flex-cache",
+  "name": "@supacache/flexcache",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oslabs-beta/flexcache.git"
   },
   "keywords": [
-    "FlexCache"
+    "flexcache"
   ],
   "author": "Brian Yang, Jake Bayar, Pravek Karwe, Charlie Woodlief",
   "license": "MIT",
